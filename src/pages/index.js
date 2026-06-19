@@ -1,0 +1,126 @@
+import React from 'react';
+import Link from '@docusaurus/Link';
+import Layout from '@theme/Layout';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import projects from '@zcohen-nerd/brand/src/data/projects';
+import styles from './index.module.css';
+
+/**
+ * zcohen-nerd hub landing page — "Systems Index".
+ *
+ * Header → Hero → Ecosystem grid → Footer. The Header and Footer come from the
+ * shared @zcohen-nerd/brand theme (rendered by @theme/Layout). This page owns
+ * the Hero and the ecosystem grid, which maps over the canonical project
+ * registry so adding a project is a one-line registry edit.
+ */
+
+function Hero() {
+  return (
+    <section className={styles.hero}>
+      <div className={styles.heroGlow} aria-hidden="true" />
+      <div className={styles.heroInner}>
+        <div className={styles.heroContent}>
+          <div className={styles.eyebrow}>
+            <span className={styles.signalDot} aria-hidden="true" />
+            home base · v2.0
+          </div>
+          <h1 className={styles.h1}>
+            Practical engineering,
+            <br />
+            systems thinking, and
+            <br />
+            modern literacy.
+          </h1>
+          <p className={styles.subcopy}>
+            Everything I build and teach, documented in public — and a single
+            door to each of it. Pick a project below.
+          </p>
+          <div className={styles.heroButtons}>
+            <a href="#ecosystem" className={styles.btnPrimary}>
+              Browse the ecosystem <span aria-hidden="true">↓</span>
+            </a>
+            <a href="#" className={styles.btnSecondary}>
+              About me
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProjectCard({project}) {
+  return (
+    <Link
+      to={project.href}
+      className={styles.card}
+      style={{
+        '--card-accent': project.accent,
+        '--card-soft': project.accentSoft,
+        '--card-tint': project.accentTint,
+        '--card-enter': project.enterColor,
+      }}>
+      <div className={styles.cardTop}>
+        <div className={styles.iconTile} aria-hidden="true">
+          {project.emoji}
+        </div>
+        <span
+          className={styles.statusPill}
+          style={{color: project.status.color, background: project.status.bg}}>
+          {project.status.label}
+        </span>
+      </div>
+      <h3 className={styles.cardTitle}>{project.name}</h3>
+      <p className={styles.cardDesc}>{project.blurb}</p>
+      <div className={styles.enter}>Enter →</div>
+    </Link>
+  );
+}
+
+function PlaceholderCard() {
+  return (
+    <div className={styles.placeholder}>
+      <div className={styles.placeholderTile} aria-hidden="true">
+        ＋
+      </div>
+      <h3 className={styles.placeholderTitle}>More on the way</h3>
+      <p className={styles.placeholderDesc}>
+        Each new project branches off here, inheriting this same shell.
+      </p>
+    </div>
+  );
+}
+
+function Ecosystem() {
+  const liveCount = projects.filter((p) => p.status.label === 'Live').length;
+  return (
+    <section id="ecosystem" className={styles.ecosystem}>
+      <div className={styles.sectionHead}>
+        <div>
+          <div className={styles.sectionEyebrow}>The ecosystem</div>
+          <h2 className={styles.h2}>Everything in one place</h2>
+        </div>
+        <div className={styles.sectionMeta}>{liveCount} live · growing</div>
+      </div>
+
+      <div className={styles.grid}>
+        {projects.map((p) => (
+          <ProjectCard key={p.name} project={p} />
+        ))}
+        <PlaceholderCard />
+      </div>
+    </section>
+  );
+}
+
+export default function Home() {
+  const {siteConfig} = useDocusaurusContext();
+  return (
+    <Layout title={siteConfig.title} description={siteConfig.tagline}>
+      <main className={styles.main}>
+        <Hero />
+        <Ecosystem />
+      </main>
+    </Layout>
+  );
+}

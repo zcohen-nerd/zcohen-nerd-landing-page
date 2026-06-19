@@ -1,0 +1,27 @@
+/* zcohen-nerd-landing-page — site styles.
+   Order matters: brand tokens first, then the Infima bridge that points
+   --ifm-* at the --zc-* tokens, then page-level resets. */
+
+@import '@zcohen-nerd/brand/tokens/zcohen-nerd-tokens.css';
+@import '@zcohen-nerd/brand/src/infima-bridge.css';
+
+/* Parent zcohen-nerd theme — no data-theme attribute, navy/cyan.
+   (Other ecosystem sites set data-theme on <html> for their family.) */
+
+html,
+body {
+  margin: 0;
+  background: var(--zc-color-bg);
+  color: var(--zc-color-text);
+  font-family: var(--zc-font-sans);
+}
+
+/* The homepage is full-bleed (hero gradient runs edge to edge). Strip the
+   default Infima container padding/centering that the classic Layout's <main>
+   would otherwise impose. */
+.main-wrapper > main {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}

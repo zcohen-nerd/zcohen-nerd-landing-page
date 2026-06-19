@@ -1,0 +1,295 @@
+/* zcohen-nerd landing page — Hero + Ecosystem grid.
+   Chrome (Navbar/Footer) is provided by the @zcohen-nerd/brand theme. */
+
+.main {
+  display: block;
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 104px 40px 112px;
+  background: linear-gradient(135deg, #0a1428 0%, #102040 45%, #1b3358 100%);
+}
+
+.heroGlow {
+  position: absolute;
+  top: -140px;
+  right: -40px;
+  width: 620px;
+  height: 620px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(16, 184, 216, 0.28),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.heroInner {
+  position: relative;
+  max-width: var(--zc-width-content);
+  margin: 0 auto;
+}
+
+.heroContent {
+  max-width: 780px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--zc-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--zc-cyan-400);
+  border: 1px solid rgba(79, 205, 228, 0.35);
+  border-radius: var(--zc-radius-pill);
+  padding: 6px 14px;
+}
+
+.signalDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--zc-amber-500);
+  box-shadow: 0 0 8px rgba(248, 200, 64, 0.8);
+}
+
+.h1 {
+  font-size: 56px;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  font-weight: var(--zc-weight-bold);
+  color: #fff;
+  margin: 24px 0 0;
+}
+
+.subcopy {
+  font-size: 20px;
+  line-height: 1.6;
+  color: #aebed1;
+  margin: 24px 0 0;
+  max-width: 580px;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 14px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+
+.btnPrimary,
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: var(--zc-weight-semibold);
+  font-size: 15px;
+  padding: 13px 24px;
+  border-radius: var(--zc-radius-md);
+  text-decoration: none;
+  transition: background var(--zc-transition), border-color var(--zc-transition);
+}
+
+.btnPrimary {
+  background: var(--zc-cyan-500);
+  color: #06222a;
+}
+
+.btnPrimary:hover {
+  background: var(--zc-cyan-400);
+  color: #06222a;
+}
+
+.btnSecondary {
+  background: transparent;
+  border: 1px solid rgba(174, 190, 209, 0.4);
+  color: #e8eef6;
+}
+
+.btnSecondary:hover {
+  border-color: #e8eef6;
+  color: #e8eef6;
+}
+
+/* ── Ecosystem grid ─────────────────────────────────────────────────────────── */
+.ecosystem {
+  max-width: var(--zc-width-content);
+  margin: 0 auto;
+  padding: 80px 40px 96px;
+}
+
+.sectionHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  gap: 16px;
+}
+
+.sectionEyebrow {
+  font-family: var(--zc-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--zc-cyan-700);
+}
+
+.h2 {
+  font-size: 34px;
+  font-weight: var(--zc-weight-bold);
+  color: var(--zc-color-text);
+  margin: 8px 0 0;
+  letter-spacing: -0.01em;
+}
+
+.sectionMeta {
+  font-family: var(--zc-font-mono);
+  font-size: 13px;
+  color: var(--zc-color-text-subtle);
+  white-space: nowrap;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* ── Project card ───────────────────────────────────────────────────────────── */
+.card {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--zc-color-border);
+  border-top: 4px solid var(--card-accent);
+  border-radius: var(--zc-radius-xl);
+  padding: 28px;
+  box-shadow: var(--zc-shadow-md);
+  text-decoration: none;
+  transition: transform var(--zc-transition), box-shadow var(--zc-transition),
+    border-color var(--zc-transition);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--zc-shadow-lg);
+  border-color: var(--card-soft);
+  border-top-color: var(--card-accent);
+  text-decoration: none;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.iconTile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--zc-radius-md);
+  background: var(--card-tint);
+  font-size: 24px;
+}
+
+.statusPill {
+  font-family: var(--zc-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--zc-radius-pill);
+}
+
+.cardTitle {
+  font-size: 20px;
+  font-weight: var(--zc-weight-bold);
+  color: var(--zc-color-text);
+  margin: 20px 0 6px;
+}
+
+.cardDesc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--zc-color-text-muted);
+  margin: 0;
+}
+
+.enter {
+  font-size: 14px;
+  font-weight: var(--zc-weight-semibold);
+  color: var(--card-enter);
+  margin-top: 18px;
+}
+
+/* ── Placeholder card ───────────────────────────────────────────────────────── */
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  background: var(--zc-color-rail);
+  border: 1.5px dashed var(--zc-color-border-strong);
+  border-radius: var(--zc-radius-xl);
+  padding: 28px;
+}
+
+.placeholderTile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--zc-radius-md);
+  background: #fff;
+  border: 1px solid var(--zc-color-border);
+  font-size: 24px;
+  color: var(--zc-color-text-subtle);
+}
+
+.placeholderTitle {
+  font-size: 20px;
+  font-weight: var(--zc-weight-bold);
+  color: var(--zc-color-text-muted);
+  margin: 20px 0 6px;
+}
+
+.placeholderDesc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--zc-color-text-subtle);
+  margin: 0;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .hero {
+    padding: 72px 20px 80px;
+  }
+  .h1 {
+    font-size: 38px;
+  }
+  .subcopy {
+    font-size: 18px;
+  }
+  .ecosystem {
+    padding: 56px 20px 72px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .sectionHead {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
