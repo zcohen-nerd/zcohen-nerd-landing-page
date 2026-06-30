@@ -39,7 +39,7 @@ function Hero() {
             <a href="#ecosystem" className={styles.btnPrimary}>
               Browse the ecosystem <span aria-hidden="true">↓</span>
             </a>
-            <a href="#" className={styles.btnSecondary}>
+            <a href="/about" className={styles.btnSecondary}>
               About me
             </a>
           </div>
