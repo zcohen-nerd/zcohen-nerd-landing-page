@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import projects from '@zcohen-nerd/brand/src/data/projects';
@@ -51,8 +50,8 @@ function Hero() {
 
 function ProjectCard({project}) {
   return (
-    <Link
-      to={project.href}
+    <a
+      href={project.href}
       className={styles.card}
       style={{
         '--card-accent': project.accent,
@@ -73,7 +72,7 @@ function ProjectCard({project}) {
       <h3 className={styles.cardTitle}>{project.name}</h3>
       <p className={styles.cardDesc}>{project.blurb}</p>
       <div className={styles.enter}>Enter →</div>
-    </Link>
+    </a>
   );
 }
 
