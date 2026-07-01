@@ -31,12 +31,12 @@ function Hero() {
             modern literacy.
           </h1>
           <p className={styles.subcopy}>
-            Everything I build and teach, documented in public — and a single
-            door to each of it. Pick a project below.
+            A home base for the engineering projects, technical guides, and
+            education resources I&rsquo;m building in public.
           </p>
           <div className={styles.heroButtons}>
             <a href="#ecosystem" className={styles.btnPrimary}>
-              Browse the ecosystem <span aria-hidden="true">↓</span>
+              Explore the projects <span aria-hidden="true">↓</span>
             </a>
             <a href="/about" className={styles.btnSecondary}>
               About me
@@ -91,7 +91,6 @@ function PlaceholderCard() {
 }
 
 function Ecosystem() {
-  const liveCount = projects.filter((p) => p.status.label === 'Live').length;
   return (
     <section id="ecosystem" className={styles.ecosystem}>
       <div className={styles.sectionHead}>
@@ -99,7 +98,7 @@ function Ecosystem() {
           <div className={styles.sectionEyebrow}>The ecosystem</div>
           <h2 className={styles.h2}>Everything in one place</h2>
         </div>
-        <div className={styles.sectionMeta}>{liveCount} live · growing</div>
+        <div className={styles.sectionMeta}>3 public projects · growing</div>
       </div>
 
       <div className={styles.grid}>

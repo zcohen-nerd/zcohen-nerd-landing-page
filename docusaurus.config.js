@@ -6,7 +6,7 @@
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'zcohen-nerd',
+  title: 'zcohen-nerd — Engineering, Systems Thinking, and Modern Literacy',
   tagline:
     'Practical engineering, systems thinking, and modern literacy — documented in public.',
   favicon: 'img/zcohen-nerd-icon.png',
