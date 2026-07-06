@@ -40,7 +40,7 @@ Connector Guide is labeled "In progress" in the project registry. The task spec 
 
 ## Remaining Issues
 
-1. **Connector Guide status** — "In progress" should be "Public Review Draft" per current ecosystem state. Requires a targeted edit to `src/data/projects.js` in the brand package and a new publish (`@zcohen-nerd/brand@1.0.4`).
+1. **Connector Guide status** — Fixed in brand package (`876a011`). Will be live once `@zcohen-nerd/brand@1.0.3` is published from home machine.
 2. **Canonical URL www vs no-www** — `docusaurus.config.js` uses `https://www.zcohen-nerd.com`; CNAME is `www.zcohen-nerd.com`. If the canonical should be the apex (`zcohen-nerd.com`), DNS needs an ALIAS/ANAME record for the apex and the CNAME updated. Out of scope here.
 3. **Project blurbs** — Current blurbs are functional but could be tightened. Requires brand package edit.
 
