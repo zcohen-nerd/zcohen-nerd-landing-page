@@ -54,7 +54,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/zcohen-nerd-icon.png',
+      image: 'img/og-zcohen-nerd.png',
       colorMode: {
         // The parent zcohen-nerd theme is a light command-deck. No dark variant.
         defaultMode: 'light',

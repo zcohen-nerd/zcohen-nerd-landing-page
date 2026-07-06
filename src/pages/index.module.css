@@ -270,6 +270,55 @@
   margin: 0;
 }
 
+/* ── Who's behind this ──────────────────────────────────────────────────────── */
+.who {
+  background: var(--zc-color-rail);
+  border-top: 1px solid var(--zc-color-border);
+}
+
+.whoInner {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  max-width: var(--zc-width-content);
+  margin: 0 auto;
+  padding: 56px 40px 64px;
+}
+
+.whoPhoto {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: var(--zc-shadow-md);
+  flex-shrink: 0;
+}
+
+.whoCopy {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--zc-color-text-muted);
+  margin: 10px 0 14px;
+  max-width: 640px;
+}
+
+.whoCopy strong {
+  color: var(--zc-color-text);
+}
+
+.whoLink {
+  font-size: 15px;
+  font-weight: var(--zc-weight-semibold);
+  color: var(--zc-cyan-700);
+  text-decoration: none;
+}
+
+.whoLink:hover {
+  color: var(--zc-cyan-500);
+  text-decoration: none;
+}
+
 /* ── Responsive ─────────────────────────────────────────────────────────────── */
 @media (max-width: 720px) {
   .hero {
@@ -291,5 +340,10 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+  .whoInner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px 20px 48px;
   }
 }
