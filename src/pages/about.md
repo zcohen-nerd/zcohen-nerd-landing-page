@@ -35,5 +35,5 @@ This site is where all of that lives.
 I'm always glad to connect about electromechanical systems, engineering education, practical technical documentation, *FIRST* Robotics, or projects that live at the messy boundary between hardware, software, and people.
 
 - [Email me](mailto:zachary@zcohen-nerd.com)
-- [Find me on LinkedIn](https://www.linkedin.com/in/zachary-cohen-nerd/)
+- [Find me on LinkedIn](https://www.linkedin.com/in/zachary-cohen-nerd/) <span aria-hidden="true">↗</span><span className="sr-only">(opens external site)</span>
 - [View projects](pathname:///#ecosystem)

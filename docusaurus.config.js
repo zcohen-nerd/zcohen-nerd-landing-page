@@ -33,6 +33,20 @@ const config = {
     locales: ['en'],
   },
 
+  // Privacy-friendly analytics (Plausible): cookieless, no personal data.
+  // The outbound-links variant also records an "Outbound Link: Click" event
+  // (with the destination URL as a prop) for every click that leaves the
+  // site — covering project cards, nav, and footer links without any
+  // per-link markup. Requires the zcohen-nerd.com site to be registered in
+  // the Plausible account; no secrets live in this repo.
+  scripts: [
+    {
+      src: 'https://plausible.io/js/script.outbound-links.js',
+      defer: true,
+      'data-domain': 'zcohen-nerd.com',
+    },
+  ],
+
   // Shared brand: swizzled Navbar + Footer for the whole ecosystem.
   themes: ['@zcohen-nerd/brand'],
 

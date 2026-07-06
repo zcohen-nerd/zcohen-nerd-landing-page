@@ -85,3 +85,43 @@ Headshot is a downscaled 640px/51KB web copy of the Portfolio original. The www-
 ### Recommendation
 
 Open a PR from `hub-tier1-og-identity` into `main`.
+
+---
+
+## Analytics and External Link Indicators
+
+### Scope
+
+Updated only the `zcohen-nerd.com` hub site. Linked destination pages were not audited. The shared Navbar/Footer live in the brand package and were not modified.
+
+### Analytics Provider
+
+Plausible (cookieless, no personal data, EU-hosted). Script added via `scripts` in `docusaurus.config.js`: `https://plausible.io/js/script.outbound-links.js` with `data-domain="zcohen-nerd.com"`. No secrets in the repo.
+
+### Analytics Events
+
+- Pageviews on every page (standard script)
+- "Outbound Link: Click" with the destination URL as a prop, fired automatically for every click that leaves the site — covers project cards, nav links (Work/Writing), and footer links (GitHub/LinkedIn) without per-link markup, including the brand-package-rendered chrome
+- No scroll depth, mouse movement, fingerprinting, or identity tracking
+
+### External Link Indicator Result
+
+- Project cards: "Enter ↗" for external destinations (Literacy for Kids, Connector Guide); Portfolio is on `portfolio.zcohen-nerd.com` (domain family) and keeps "Enter →"
+- About CTA: LinkedIn link marked ↗; email and internal links unmarked
+- Navbar/footer links are brand-package components — indicator markup there is a brand-repo follow-up
+
+### Accessibility Notes
+
+Each ↗ is `aria-hidden` with an adjacent `.sr-only` "(opens external site)" text; `.sr-only` utility added to custom.css. Site does not use `target="_blank"`, so no `rel` changes were needed.
+
+### Build Result
+
+Build clean. Verified in browser: correct per-card indicators, sr-only visually hidden (1×1), Plausible tag present, no console errors. Built output contains no Google/ad-tech scripts.
+
+### Remaining Setup Required
+
+Register `zcohen-nerd.com` as a site in a Plausible account (plausible.io → Add site). Until then the script loads but events are rejected. Plausible is paid after a 30-day trial; GoatCounter is the free alternative if preferred — swap the script entry in `docusaurus.config.js`.
+
+### Recommendation
+
+Open a PR from `hub-analytics-external-links` into `main` (after creating the Plausible site entry, or accepting that data starts when it exists).

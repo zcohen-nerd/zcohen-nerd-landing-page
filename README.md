@@ -30,6 +30,12 @@ npm install
 npm start
 ```
 
+## Analytics
+
+Privacy-friendly analytics via [Plausible](https://plausible.io/) — cookieless, no personal data. The script is configured in `docusaurus.config.js` (`scripts` array, `data-domain="zcohen-nerd.com"`). The `outbound-links` script variant automatically records an "Outbound Link: Click" event for every click leaving the site, so project cards and nav/footer links are tracked by destination URL with no per-link markup. To add a custom event later, call `window.plausible('Event Name')` in a click handler (guard with `if (window.plausible)`).
+
+Account-side setup: the `zcohen-nerd.com` site must be registered in the Plausible account for data to be accepted.
+
 ## Deployment
 
 Deploys automatically to GitHub Pages on every push to `main` via GitHub Actions. Live at **[www.zcohen-nerd.com](https://www.zcohen-nerd.com)**.
