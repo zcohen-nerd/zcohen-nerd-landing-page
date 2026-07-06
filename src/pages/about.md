@@ -1,9 +1,12 @@
 ---
 title: About Me
 description: Zac Cohen — systems-minded electromechanical engineer, maker, educator, and builder of practical engineering tools.
+wrapperClassName: about-page
 ---
 
 # About Me
+
+<img className="about-headshot" src="/img/zachary-cohen-headshot.jpg" alt="Portrait of Zac Cohen" />
 
 I'm Zac Cohen, a systems-minded electromechanical engineer, maker, educator, and builder of practical engineering tools.
 
@@ -26,3 +29,11 @@ I'm especially interested in electromechanical systems, robotics, embedded contr
 The "nerd" part of the name is intentional. I like deep dives. I like clean diagrams. I like weird edge cases. I like when a project has both a spreadsheet and a soldering iron involved. Most of all, I like building useful things and then explaining them clearly enough that someone else can build on them.
 
 This site is where all of that lives.
+
+## Want to talk?
+
+I'm always glad to connect about electromechanical systems, engineering education, practical technical documentation, *FIRST* Robotics, or projects that live at the messy boundary between hardware, software, and people.
+
+- [Email me](mailto:zachary@zcohen-nerd.com)
+- [Find me on LinkedIn](https://www.linkedin.com/in/zachary-cohen-nerd/)
+- [View projects](pathname:///#ecosystem)

@@ -25,3 +25,34 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* About page — give the markdown content a reading column (the global
+   main reset above strips padding for the full-bleed homepage). */
+.about-page .container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* About page headshot — floats beside the opening paragraphs on wide
+   screens, stacks above them on mobile. */
+.about-headshot {
+  float: right;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: var(--zc-shadow-md);
+  margin: 0 0 16px 24px;
+}
+
+@media (max-width: 720px) {
+  .about-headshot {
+    float: none;
+    display: block;
+    width: 140px;
+    height: 140px;
+    margin: 0 0 20px;
+  }
+}

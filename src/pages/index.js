@@ -111,6 +111,34 @@ function Ecosystem() {
   );
 }
 
+function WhoIsBehind() {
+  return (
+    <section className={styles.who}>
+      <div className={styles.whoInner}>
+        <img
+          className={styles.whoPhoto}
+          src="/img/zachary-cohen-headshot.jpg"
+          alt="Portrait of Zac Cohen"
+          loading="lazy"
+        />
+        <div>
+          <div className={styles.sectionEyebrow}>Who&rsquo;s behind this?</div>
+          <p className={styles.whoCopy}>
+            I&rsquo;m <strong>Zac Cohen</strong> — an electromechanical systems
+            engineer, maker, educator, and documentation obsessive. zcohen-nerd
+            is my public engineering and education workshop: practical guides,
+            open curricula, hardware/software projects, and systems-thinking
+            resources built in public.
+          </p>
+          <a href="/about" className={styles.whoLink}>
+            More about Zac →
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
@@ -118,6 +146,7 @@ export default function Home() {
       <main className={styles.main}>
         <Hero />
         <Ecosystem />
+        <WhoIsBehind />
       </main>
     </Layout>
   );
