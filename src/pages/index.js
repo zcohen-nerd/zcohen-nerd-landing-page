@@ -48,7 +48,22 @@ function Hero() {
   );
 }
 
+/**
+ * A link is "external" when it leaves the zcohen-nerd.com domain family
+ * (subdomains like portfolio.zcohen-nerd.com are family). External links get
+ * a visible ↗ indicator plus screen-reader text.
+ */
+function isExternal(href) {
+  try {
+    const host = new URL(href, 'https://www.zcohen-nerd.com').hostname;
+    return host !== 'zcohen-nerd.com' && !host.endsWith('.zcohen-nerd.com');
+  } catch {
+    return false;
+  }
+}
+
 function ProjectCard({project}) {
+  const external = isExternal(project.href);
   return (
     <a
       href={project.href}
@@ -71,7 +86,16 @@ function ProjectCard({project}) {
       </div>
       <h3 className={styles.cardTitle}>{project.name}</h3>
       <p className={styles.cardDesc}>{project.blurb}</p>
-      <div className={styles.enter}>Enter →</div>
+      <div className={styles.enter}>
+        {external ? (
+          <>
+            Enter <span aria-hidden="true">↗</span>
+            <span className="sr-only">(opens external site)</span>
+          </>
+        ) : (
+          'Enter →'
+        )}
+      </div>
     </a>
   );
 }
