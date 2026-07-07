@@ -1,41 +1,25 @@
-# zcohen-nerd landing page
+# zcohen-nerd 👋
 
-The hub landing page for **[www.zcohen-nerd.com](https://www.zcohen-nerd.com)** — a single-page directory routing visitors to every project in the zcohen-nerd ecosystem.
+Hey — I'm **Zac Cohen**: electromechanical systems engineer, maker, educator, and documentation obsessive.
 
-Built with [Docusaurus](https://docusaurus.io/), consuming the shared [`@zcohen-nerd/brand`](https://github.com/zcohen-nerd/zcohen-nerd-brand) package for the Navbar, Footer, design tokens, and project registry.
+zcohen-nerd is my public engineering and education workshop — practical guides, open curricula, hardware/software projects, and systems-thinking resources, all built in public.
 
-## What's on the site
+## 🚪 You probably want the actual site
 
-- **Hero** — introduction and navigation to the ecosystem
-- **Ecosystem grid** — cards for every active project, data-driven from the shared project registry
-- **About** — background on the work and the person behind it
+**→ [www.zcohen-nerd.com](https://www.zcohen-nerd.com)**
 
-## Projects in the ecosystem
+That's the front door to everything:
 
-| Project | Status | URL |
-|---|---|---|
-| Portfolio | Live | [zcohen-nerd.github.io/Portfolio](https://zcohen-nerd.github.io/Portfolio/) |
-| Literacy for Kids | Live | [literacy-for-kids.github.io/literacy_for_kids](https://literacy-for-kids.github.io/literacy_for_kids/) |
-| Connector Guide | In progress | [zcohen-nerd.github.io/connector-engineering-field-guide](https://zcohen-nerd.github.io/connector-engineering-field-guide/) |
+- ⚙️ **[Portfolio](https://portfolio.zcohen-nerd.com/)** — selected work in software, hardware, and the systems that connect them
+- 📚 **[Literacy for Kids](https://www.literacy-for-kids.com/)** — free, open curricula teaching kids how modern systems actually work
+- 🔌 **[Connector Guide](https://zcohen-nerd.github.io/connector-engineering-field-guide/)** — a field guide for professional electrical connectors
 
-## Local development
+## What this repo is
 
-Requires the brand package to be cloned alongside this repo:
+The source for that landing page — a [Docusaurus](https://docusaurus.io/) site using the shared [`@zcohen-nerd/brand`](https://github.com/zcohen-nerd/zcohen-nerd-brand) design system, deployed to GitHub Pages on every push to `main`.
 
-```bash
-git clone https://github.com/zcohen-nerd/zcohen-nerd-brand.git ../zcohen-nerd-brand
-git clone https://github.com/zcohen-nerd/zcohen-nerd-landing-page.git
-cd zcohen-nerd-landing-page
-npm install
-npm start
-```
+## Say hi
 
-## Analytics
-
-Privacy-friendly analytics via [Plausible](https://plausible.io/) — cookieless, no personal data. The script is configured in `docusaurus.config.js` (`scripts` array, `data-domain="zcohen-nerd.com"`). The `outbound-links` script variant automatically records an "Outbound Link: Click" event for every click leaving the site, so project cards and nav/footer links are tracked by destination URL with no per-link markup. To add a custom event later, call `window.plausible('Event Name')` in a click handler (guard with `if (window.plausible)`).
-
-Account-side setup: the `zcohen-nerd.com` site must be registered in the Plausible account for data to be accepted.
-
-## Deployment
-
-Deploys automatically to GitHub Pages on every push to `main` via GitHub Actions. Live at **[www.zcohen-nerd.com](https://www.zcohen-nerd.com)**.
+- 💼 [LinkedIn](https://www.linkedin.com/in/zachary-cohen-nerd/)
+- 🐙 [GitHub](https://github.com/zcohen-nerd)
+- ✉️ [zachary@zcohen-nerd.com](mailto:zachary@zcohen-nerd.com)
