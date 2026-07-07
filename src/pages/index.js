@@ -122,7 +122,9 @@ function Ecosystem() {
           <div className={styles.sectionEyebrow}>The ecosystem</div>
           <h2 className={styles.h2}>Everything in one place</h2>
         </div>
-        <div className={styles.sectionMeta}>3 public projects · growing</div>
+        <div className={styles.sectionMeta}>
+          {projects.length} public projects · growing
+        </div>
       </div>
 
       <div className={styles.grid}>
