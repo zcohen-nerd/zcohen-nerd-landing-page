@@ -34,6 +34,19 @@ function Hero() {
             A home base for the engineering projects, technical guides, and
             education resources I&rsquo;m building in public.
           </p>
+          <div className={styles.heroByline}>
+            <img
+              className={styles.heroBylinePhoto}
+              src="/img/zachary-cohen-headshot.jpg"
+              alt="Portrait of Zac Cohen"
+            />
+            <div>
+              <div className={styles.heroBylineName}>Zac Cohen</div>
+              <div className={styles.heroBylineTitle}>
+                Electromechanical systems engineer · maker · educator
+              </div>
+            </div>
+          </div>
           <div className={styles.heroButtons}>
             <a href="#ecosystem" className={styles.btnPrimary}>
               Explore the projects <span aria-hidden="true">↓</span>
