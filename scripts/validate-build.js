@@ -82,7 +82,9 @@ check('project disclosure in HTML', indexHtml.includes('id="zc-project-disclosur
 check('disclosure trigger has aria-controls', indexHtml.includes('aria-controls="zc-project-disclosure"'));
 check('mobile drawer in HTML', indexHtml.includes('id="zc-mobile-drawer"'));
 check('drawer trigger has aria-controls', indexHtml.includes('aria-controls="zc-mobile-drawer"'));
-const discBody = indexHtml.match(/id="zc-project-disclosure"[\s\S]*?<\/div>/)?.[0] ?? '';
+const discStart = indexHtml.indexOf('id="zc-project-disclosure"');
+const discEnd = indexHtml.indexOf('id="zc-mobile-drawer"');
+const discBody = discStart !== -1 && discEnd > discStart ? indexHtml.slice(discStart, discEnd) : '';
 check('disclosure links server-rendered', (discBody.match(/href="/g) || []).length >= 3);
 const ids = [...indexHtml.matchAll(/ id="([^"]+)"/g)].map((m) => m[1]);
 check('no duplicate ids', ids.length === new Set(ids).size);
