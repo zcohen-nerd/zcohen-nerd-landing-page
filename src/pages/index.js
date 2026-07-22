@@ -68,7 +68,7 @@ function Hero() {
  */
 function isExternal(href) {
   try {
-    const host = new URL(href, 'https://www.zcohen-nerd.com').hostname;
+    const host = new URL(href, 'https://zcohen-nerd.com').hostname;
     return host !== 'zcohen-nerd.com' && !host.endsWith('.zcohen-nerd.com');
   } catch {
     return false;
@@ -113,38 +113,44 @@ function ProjectCard({project}) {
   );
 }
 
-function PlaceholderCard() {
-  return (
-    <div className={styles.placeholder}>
-      <div className={styles.placeholderTile} aria-hidden="true">
-        ＋
-      </div>
-      <h3 className={styles.placeholderTitle}>More on the way</h3>
-      <p className={styles.placeholderDesc}>
-        Each new project branches off here, inheriting this same shell.
-      </p>
-    </div>
-  );
-}
-
 function Ecosystem() {
+  const featured = projects.filter((p) => p.featured);
+  const tools = projects.filter((p) => !p.featured);
   return (
     <section id="ecosystem" className={styles.ecosystem}>
       <div className={styles.sectionHead}>
         <div>
-          <div className={styles.sectionEyebrow}>The ecosystem</div>
-          <h2 className={styles.h2}>Everything in one place</h2>
+          <div className={styles.sectionEyebrow}>Start here</div>
+          <h2 className={styles.h2}>Featured destinations</h2>
         </div>
         <div className={styles.sectionMeta}>
-          {projects.length} public projects · growing
+          {projects.length} public destinations &amp; tools · growing
         </div>
       </div>
+      <p className={styles.sectionSub}>
+        The main destinations across my engineering, education, and
+        documentation work.
+      </p>
 
       <div className={styles.grid}>
-        {projects.map((p) => (
+        {featured.map((p) => (
           <ProjectCard key={p.name} project={p} />
         ))}
-        <PlaceholderCard />
+      </div>
+
+      <div className={styles.sectionHeadSecondary}>
+        <div className={styles.sectionEyebrow}>Open tools &amp; systems</div>
+        <h2 className={styles.h2}>Engineering tools &amp; projects</h2>
+      </div>
+      <p className={styles.sectionSub}>
+        Open tools and hands-on systems spanning CAD, embedded development,
+        automation, and mechatronics.
+      </p>
+
+      <div className={styles.grid}>
+        {tools.map((p) => (
+          <ProjectCard key={p.name} project={p} />
+        ))}
       </div>
     </section>
   );

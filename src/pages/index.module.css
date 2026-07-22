@@ -183,6 +183,18 @@
   white-space: nowrap;
 }
 
+.sectionSub {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--zc-color-text-muted);
+  margin: -24px 0 28px;
+  max-width: 560px;
+}
+
+.sectionHeadSecondary {
+  margin: 56px 0 36px;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -256,45 +268,6 @@
   font-weight: var(--zc-weight-semibold);
   color: var(--card-enter);
   margin-top: 18px;
-}
-
-/* ── Placeholder card ───────────────────────────────────────────────────────── */
-.placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  background: var(--zc-color-rail);
-  border: 1.5px dashed var(--zc-color-border-strong);
-  border-radius: var(--zc-radius-xl);
-  padding: 28px;
-}
-
-.placeholderTile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: var(--zc-radius-md);
-  background: #fff;
-  border: 1px solid var(--zc-color-border);
-  font-size: 24px;
-  color: var(--zc-color-text-subtle);
-}
-
-.placeholderTitle {
-  font-size: 20px;
-  font-weight: var(--zc-weight-bold);
-  color: var(--zc-color-text-muted);
-  margin: 20px 0 6px;
-}
-
-.placeholderDesc {
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--zc-color-text-subtle);
-  margin: 0;
 }
 
 /* ── Who's behind this ──────────────────────────────────────────────────────── */

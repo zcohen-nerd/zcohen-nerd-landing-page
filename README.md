@@ -6,7 +6,7 @@ zcohen-nerd is my public engineering and education workshop — practical guides
 
 ## 🚪 You probably want the actual site
 
-**→ [www.zcohen-nerd.com](https://www.zcohen-nerd.com)**
+**→ [zcohen-nerd.com](https://zcohen-nerd.com)**
 
 That's the front door to everything:
 
