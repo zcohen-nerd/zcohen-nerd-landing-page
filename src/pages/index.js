@@ -68,7 +68,7 @@ function Hero() {
  */
 function isExternal(href) {
   try {
-    const host = new URL(href, 'https://www.zcohen-nerd.com').hostname;
+    const host = new URL(href, 'https://zcohen-nerd.com').hostname;
     return host !== 'zcohen-nerd.com' && !host.endsWith('.zcohen-nerd.com');
   } catch {
     return false;

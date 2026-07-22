@@ -1,5 +1,5 @@
 // @ts-check
-// Hub landing page for www.zcohen-nerd.com.
+// Hub landing page for zcohen-nerd.com.
 // Chrome (Navbar + Footer) comes from the @zcohen-nerd/brand theme, so the
 // themeConfig navbar/footer here are intentionally minimal — the swizzled
 // components ignore them.
@@ -11,22 +11,56 @@ const config = {
     'Practical engineering, systems thinking, and modern literacy — documented in public.',
   favicon: 'img/zcohen-nerd-icon.png',
 
-  url: 'https://www.zcohen-nerd.com',
-  // Served at the root domain. Other projects route off subpaths
-  // (/portfolio, /literacy, /connectors) via reverse-proxy rewrites.
+  // Canonical apex domain; www.zcohen-nerd.com 301-redirects here.
+  url: 'https://zcohen-nerd.com',
   baseUrl: '/',
+  // GitHub Pages serves directory-style URLs (/about/); make that explicit
+  // so the sitemap and internal links use the final, non-redirecting form.
+  trailingSlash: true,
 
   organizationName: 'zcohen-nerd',
   projectName: 'zcohen-nerd-landing-page',
 
-  // /portfolio, /literacy, /connectors are served by sibling repos via
-  // reverse-proxy rewrites — they don't resolve in this standalone build.
-  onBrokenLinks: 'warn',
+  onBrokenLinks: 'throw',
   markdown: {
     hooks: {
-      onBrokenMarkdownLinks: 'warn',
+      onBrokenMarkdownLinks: 'throw',
     },
   },
+
+  // Structured data: WebSite + Person identity for the whole ecosystem.
+  headTags: [
+    {
+      tagName: 'script',
+      attributes: {type: 'application/ld+json'},
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'zcohen-nerd',
+        url: 'https://zcohen-nerd.com/',
+        description:
+          'Practical engineering, systems thinking, and modern literacy — documented in public.',
+      }),
+    },
+    {
+      tagName: 'script',
+      attributes: {type: 'application/ld+json'},
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: 'Zac Cohen',
+        alternateName: 'Zachary Cohen',
+        url: 'https://zcohen-nerd.com/',
+        jobTitle: 'Electromechanical Systems Engineer',
+        sameAs: [
+          'https://github.com/zcohen-nerd',
+          'https://www.linkedin.com/in/zachary-cohen-nerd/',
+          'https://zcohennerd.substack.com/',
+          'https://portfolio.zcohen-nerd.com/',
+        ],
+      }),
+    },
+  ],
 
   i18n: {
     defaultLocale: 'en',
