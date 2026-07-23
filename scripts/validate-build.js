@@ -85,7 +85,23 @@ check('drawer trigger has aria-controls', indexHtml.includes('aria-controls="zc-
 const discStart = indexHtml.indexOf('id="zc-project-disclosure"');
 const discEnd = indexHtml.indexOf('id="zc-mobile-drawer"');
 const discBody = discStart !== -1 && discEnd > discStart ? indexHtml.slice(discStart, discEnd) : '';
-check('disclosure links server-rendered', (discBody.match(/href="/g) || []).length >= 3);
+check('all 8 registry links server-rendered in disclosure', (discBody.match(/href="/g) || []).length >= 8, `found ${(discBody.match(/href="/g) || []).length}`);
+
+// Shared disclosure trigger must be labeled "Ecosystem" (Step 2 rename).
+// Structural: inspect the button bound to the disclosure id, not a global
+// string ban — "projects" legitimately appears elsewhere on the page.
+const triggerMatch = indexHtml.match(/<button[^>]*aria-controls="zc-project-disclosure"[^>]*>([\s\S]*?)<\/button>/);
+const triggerText = (triggerMatch?.[1] || '').replace(/<[^>]+>/g, '').trim();
+check('ecosystem disclosure trigger labeled Ecosystem', triggerText.startsWith('Ecosystem'), `got "${triggerText}"`);
+check('old shared Projects trigger absent', !triggerText.startsWith('Projects'));
+
+// Fusion System Blocks card must show the Public Beta status pill.
+// Anchor on the card title (nav links to FSB carry no pill), then inspect
+// backward to the opening <a of that card.
+const fsbTitleIdx = indexHtml.indexOf('Fusion System Blocks</h3>');
+const fsbCardStart = fsbTitleIdx === -1 ? -1 : indexHtml.lastIndexOf('<a ', fsbTitleIdx);
+const fsbCard = fsbCardStart === -1 ? '' : indexHtml.slice(fsbCardStart, fsbTitleIdx);
+check('Fusion System Blocks card shows Public Beta', fsbCard.includes('Public Beta'), fsbTitleIdx === -1 ? 'card not found' : 'pill mismatch');
 const ids = [...indexHtml.matchAll(/ id="([^"]+)"/g)].map((m) => m[1]);
 check('no duplicate ids', ids.length === new Set(ids).size);
 const cssDir = path.join(build, 'assets', 'css');
