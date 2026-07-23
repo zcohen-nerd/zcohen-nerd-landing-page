@@ -36,4 +36,5 @@ I'm always glad to connect about electromechanical systems, engineering educatio
 
 - [Email me](mailto:zachary@zcohen-nerd.com)
 - [Find me on LinkedIn](https://www.linkedin.com/in/zachary-cohen-nerd/) <span aria-hidden="true">↗</span><span className="sr-only">(opens external site)</span>
+- [View my résumé (PDF)](https://portfolio.zcohen-nerd.com/files/zac-cohen-resume.pdf)
 - [View projects](pathname:///#ecosystem)

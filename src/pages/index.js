@@ -156,28 +156,61 @@ function Ecosystem() {
   );
 }
 
-function WhoIsBehind() {
+// What's actively receiving attention. Durable themes only — no release
+// dates or cadence promises. Links derive from the shared registry.
+const FOCUS_ITEMS = [
+  {
+    title: 'Engineering tools',
+    copy: 'Building practical tools that connect systems architecture, CAD, embedded development, and hardware workflows.',
+    project: 'Fusion System Blocks',
+  },
+  {
+    title: 'Engineering documentation',
+    copy: 'Expanding guides and methods that make multidisciplinary systems easier to understand, review, and maintain.',
+    project: 'Connector Guide',
+  },
+  {
+    title: 'Open education',
+    copy: 'Developing approachable curricula for computer literacy, engineering design, and systems thinking.',
+    project: 'Literacy for Kids',
+  },
+  {
+    title: 'Writing',
+    copy: 'Publishing occasional essays about engineering judgment, feedback loops, and systems that outlive their creators.',
+    project: 'Writing',
+  },
+];
+
+function CurrentFocus() {
   return (
-    <section className={styles.who}>
-      <div className={styles.whoInner}>
-        <img
-          className={styles.whoPhoto}
-          src="/img/zachary-cohen-headshot.jpg"
-          alt="Portrait of Zac Cohen"
-          loading="lazy"
-        />
-        <div>
-          <div className={styles.sectionEyebrow}>Who&rsquo;s behind this?</div>
-          <p className={styles.whoCopy}>
-            I&rsquo;m <strong>Zac Cohen</strong> — an electromechanical systems
-            engineer, maker, educator, and documentation obsessive. zcohen-nerd
-            is my public engineering and education workshop: practical guides,
-            open curricula, hardware/software projects, and systems-thinking
-            resources built in public.
-          </p>
-          <a href="/about" className={styles.whoLink}>
-            More about Zac →
-          </a>
+    <section className={styles.focus}>
+      <div className={styles.focusInner}>
+        <div className={styles.sectionEyebrow}>Current focus</div>
+        <h2 className={styles.h2}>What&rsquo;s getting attention right now</h2>
+        <div className={styles.focusGrid}>
+          {FOCUS_ITEMS.map((f) => {
+            const p = projects.find((proj) => proj.name === f.project);
+            if (!p) {
+              return null;
+            }
+            return (
+              <div key={f.title} className={styles.focusItem}>
+                <h3 className={styles.focusTitle}>{f.title}</h3>
+                <p className={styles.focusCopy}>{f.copy}</p>
+                <a href={p.href} className={styles.focusLink}>
+                  {p.name}
+                  {isExternal(p.href) && (
+                    <>
+                      {' '}
+                      <span aria-hidden="true">↗</span>
+                      <span className="sr-only">(opens external site)</span>
+                    </>
+                  )}{' '}
+                  →
+                </a>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -191,7 +224,7 @@ export default function Home() {
       <main className={styles.main}>
         <Hero />
         <Ecosystem />
-        <WhoIsBehind />
+        <CurrentFocus />
       </main>
     </Layout>
   );
