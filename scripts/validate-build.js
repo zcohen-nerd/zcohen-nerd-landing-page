@@ -127,6 +127,13 @@ const focusRegion = focusStart === -1 ? '' : indexHtml.slice(focusStart);
 check('at least three focus items', (focusRegion.match(/<h3/g) || []).length >= 3);
 check('no fixed writing cadence on homepage', !indexVisible.includes('six weeks') && !indexVisible.includes('six-week'));
 
+// ── Step 5 polish guards ─────────────────────────────────────────────────
+const notFound = fs.readFileSync(path.join(build, '404.html'), 'utf8');
+check('custom 404 content present', notFound.includes('part of the ecosystem'));
+check('404 links to hub home and portfolio', notFound.includes('href="/"') && notFound.includes('https://portfolio.zcohen-nerd.com/'));
+const hubTitle = (indexHtml.match(/<title[^>]*>([^<]+)<\/title>/) || [])[1] || '';
+check('hub homepage title under 70 chars', hubTitle.length <= 70, `${hubTitle.length} chars`);
+
 if (failures.length) {
   console.error(`\n${failures.length} validation failure(s).`);
   process.exit(1);
