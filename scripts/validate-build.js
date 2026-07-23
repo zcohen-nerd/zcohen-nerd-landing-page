@@ -108,6 +108,25 @@ const cssDir = path.join(build, 'assets', 'css');
 const cssText = fs.readdirSync(cssDir).map((f) => fs.readFileSync(path.join(cssDir, f), 'utf8')).join('');
 check('focus-visible styling present', cssText.includes('focus-visible'));
 
+// ── Step 4 content guards ────────────────────────────────────────────────
+// About page: stable résumé PDF link alongside existing contact links.
+const aboutHtml = fs.readFileSync(path.join(build, 'about', 'index.html'), 'utf8');
+check('About links the stable resume PDF', aboutHtml.includes('https://portfolio.zcohen-nerd.com/files/zac-cohen-resume.pdf'));
+check('About resume link identifies PDF', /r&#x27;|résumé|resume/i.test(aboutHtml) && aboutHtml.includes('(PDF)'));
+check('About keeps email link', aboutHtml.includes('mailto:zachary@zcohen-nerd.com'));
+check('About keeps LinkedIn link', aboutHtml.includes('linkedin.com/in/zachary-cohen-nerd'));
+
+// Homepage: Current Focus replaces the repeated identity section.
+const indexVisible = indexHtml.replace(/<script[\s\S]*?<\/script>/g, '');
+check('homepage has Current Focus section', indexVisible.includes('Current focus'));
+check('obsolete Who’s-behind heading absent', !indexVisible.includes('Who’s behind this?') && !indexVisible.includes('Who&#x27;s behind this?'));
+const headshotCount = (indexHtml.match(/zachary-cohen-headshot/g) || []).length;
+check('exactly one headshot on homepage (hero byline)', headshotCount === 1, `found ${headshotCount}`);
+const focusStart = indexHtml.indexOf('Current focus');
+const focusRegion = focusStart === -1 ? '' : indexHtml.slice(focusStart);
+check('at least three focus items', (focusRegion.match(/<h3/g) || []).length >= 3);
+check('no fixed writing cadence on homepage', !indexVisible.includes('six weeks') && !indexVisible.includes('six-week'));
+
 if (failures.length) {
   console.error(`\n${failures.length} validation failure(s).`);
   process.exit(1);

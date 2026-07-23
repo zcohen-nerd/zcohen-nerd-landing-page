@@ -270,51 +270,47 @@
   margin-top: 18px;
 }
 
-/* ── Who's behind this ──────────────────────────────────────────────────────── */
-.who {
+/* ── Current focus ──────────────────────────────────────────────────────────── */
+.focus {
   background: var(--zc-color-rail);
   border-top: 1px solid var(--zc-color-border);
 }
 
-.whoInner {
-  display: flex;
-  align-items: center;
-  gap: 32px;
+.focusInner {
   max-width: var(--zc-width-content);
   margin: 0 auto;
   padding: 56px 40px 64px;
 }
 
-.whoPhoto {
-  width: 132px;
-  height: 132px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #fff;
-  box-shadow: var(--zc-shadow-md);
-  flex-shrink: 0;
+.focusGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px 40px;
+  margin-top: 28px;
 }
 
-.whoCopy {
+.focusTitle {
   font-size: 17px;
-  line-height: 1.65;
-  color: var(--zc-color-text-muted);
-  margin: 10px 0 14px;
-  max-width: 640px;
-}
-
-.whoCopy strong {
+  font-weight: var(--zc-weight-bold);
   color: var(--zc-color-text);
+  margin: 0 0 6px;
 }
 
-.whoLink {
+.focusCopy {
   font-size: 15px;
+  line-height: 1.6;
+  color: var(--zc-color-text-muted);
+  margin: 0 0 10px;
+}
+
+.focusLink {
+  font-size: 14px;
   font-weight: var(--zc-weight-semibold);
   color: var(--zc-cyan-700);
   text-decoration: none;
 }
 
-.whoLink:hover {
+.focusLink:hover {
   color: var(--zc-cyan-500);
   text-decoration: none;
 }
@@ -341,9 +337,10 @@
     align-items: flex-start;
     gap: 8px;
   }
-  .whoInner {
-    flex-direction: column;
-    align-items: flex-start;
+  .focusInner {
     padding: 40px 20px 48px;
+  }
+  .focusGrid {
+    grid-template-columns: 1fr;
   }
 }
