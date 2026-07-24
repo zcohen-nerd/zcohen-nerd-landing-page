@@ -27,6 +27,13 @@ const indexHtml = fs.readFileSync(path.join(build, 'index.html'), 'utf8');
 const sitemap = fs.readFileSync(path.join(build, 'sitemap.xml'), 'utf8');
 const robots = fs.readFileSync(path.join(build, 'robots.txt'), 'utf8');
 
+// 0. Brand dependency must come from the npm registry, not a local path.
+const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
+const brandDep = pkg.dependencies['@zcohen-nerd/brand'] || '';
+check('brand dependency is a registry version', /^\d+\.\d+\.\d+$/.test(brandDep), `got "${brandDep}"`);
+const lock = fs.readFileSync(path.join(root, 'package-lock.json'), 'utf8');
+check('lockfile has no local brand paths', !lock.includes('file:') && !lock.includes('../zcohen-nerd-brand'));
+
 // 1. Canonical URL
 check('config url is apex', config.includes("url: 'https://zcohen-nerd.com'"));
 check('CNAME is apex', cname === 'zcohen-nerd.com', `got "${cname}"`);

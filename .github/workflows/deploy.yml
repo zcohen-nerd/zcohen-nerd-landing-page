@@ -21,9 +21,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Clone brand package
-        run: git clone https://github.com/zcohen-nerd/zcohen-nerd-brand.git ../zcohen-nerd-brand
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
