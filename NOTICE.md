@@ -34,6 +34,14 @@ first-order dependencies:
 
 | Service | Use | Notes |
 |---|---|---|
-| Plausible Analytics (`plausible.io/js/script.outbound-links.js`) | Privacy-friendly, cookieless page-view and outbound-link analytics | No cookies, no personal data, no cross-site tracking. See `/privacy/`. The script is loaded from Plausible's CDN and is not vendored in this repository. |
+| Plausible Analytics (`plausible.io/js/script.outbound-links.js`) | Cookieless page-view and outbound-link analytics | No cookies, no personal data, no cross-site tracking. Cross-origin script from `plausible.io`. See `/privacy/`. Not vendored in this repository. |
+| Cloudflare Web Analytics (`static.cloudflareinsights.com/beacon.min.js`, `POST /cdn-cgi/rum`) | Cookieless traffic + Core Web Vitals measurement | **Injected by Cloudflare at the edge — not present in this repository's source.** `zcohen-nerd.com` is proxied through Cloudflare in front of the GitHub Pages origin. Cookieless, no browser storage, no cross-site profiling. Governed by [Cloudflare's privacy policy](https://www.cloudflare.com/privacypolicy/). See `/privacy/`. |
+| Cloudflare Email Obfuscation (`/cdn-cgi/scripts/…/email-decode.min.js`) | Reassembles `mailto:` links in the browser to defeat address harvesters | First-party script injected by Cloudflare at the edge. No cookies, collects nothing. |
+| Cloudflare CDN / reverse proxy | TLS termination, caching, routing, DDoS protection for `zcohen-nerd.com` | Processes request metadata (IP, user agent, timing) as any CDN does. Governed by Cloudflare's privacy policy. |
+
+The Cloudflare items above are configured on the `zcohen-nerd.com` Cloudflare
+zone, not in this repository. If Cloudflare Web Analytics is disabled, the
+`static.cloudflareinsights.com` / `/cdn-cgi/rum` entries and the matching
+Content-Security-Policy allowances should be removed to match.
 
 No web fonts are loaded from third-party hosts.
