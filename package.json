@@ -2,6 +2,7 @@
   "name": "zcohen-nerd-landing-page",
   "version": "1.0.0",
   "private": true,
+  "license": "SEE LICENSE IN LICENSE.md",
   "description": "Hub landing page for www.zcohen-nerd.com — a single-page directory routing to every project in the ecosystem. Built on Docusaurus, consumes @zcohen-nerd/brand.",
   "scripts": {
     "docusaurus": "docusaurus",
