@@ -1,20 +1,23 @@
-// Keyboard-operability smoke for the shared @zcohen-nerd/brand navbar, exercised
-// end-to-end against the real compiled components on the built landing page:
+// Keyboard-operability contract for the shared @zcohen-nerd/brand navbar,
+// exercised end-to-end against the real compiled components on the built landing
+// page:
 //   1. the "Ecosystem" ecosystem-disclosure widget
 //   2. the mobile drawer (modal dialog)
 //
 // Brand ships its jsdom/Vitest unit suite for the same components; this is the
 // integration layer that proves it works in a real browser with real CSS
-// (focus-visible rings, scroll lock, the `hidden` attribute).
-//
-// NOTE: tests tagged `@contract` assert behaviour that the in-flight brand navbar
-// remediation delivers (focus-trap, focus-return, keyboard-open). They are
-// marked `fixme` until that work is consolidated onto this branch — see
-// CONTRIBUTING.md "Deferred". Tier-A tests below must always pass.
+// (focus-visible rings, scroll lock, the `hidden` attribute). Every test here is
+// a hard requirement — none are skipped.
 import {test, expect} from '@playwright/test';
 
 const DISCLOSURE = '#zc-project-disclosure';
 const DRAWER = '#zc-mobile-drawer';
+// The drawer toggle: its aria-label flips Open menu ↔ Close menu, so locate it
+// by the stable aria-controls instead.
+const TOGGLE = 'button[aria-controls="zc-mobile-drawer"]';
+// The close control *inside* the drawer — scoped so it never collides with the
+// toggle once that also reads "Close menu".
+const DRAWER_CLOSE = '#zc-mobile-drawer button[aria-label="Close menu"]';
 
 test.describe('ecosystem disclosure', () => {
   test.beforeEach(async ({page}) => {
@@ -52,7 +55,6 @@ test.describe('ecosystem disclosure', () => {
   });
 
   test('opens from the keyboard @contract', async ({page}) => {
-    test.fixme(true, 'pending brand navbar remediation (keyboard-open)');
     const trigger = page.getByRole('button', {name: /Ecosystem/});
     await trigger.focus();
     await page.keyboard.press('Enter');
@@ -62,9 +64,9 @@ test.describe('ecosystem disclosure', () => {
   test('Escape closes and returns focus to the trigger @contract', async ({
     page,
   }) => {
-    test.fixme(true, 'pending brand navbar remediation (focus return)');
     const trigger = page.getByRole('button', {name: /Ecosystem/});
     await trigger.click();
+    await expect(page.locator(DISCLOSURE)).toBeVisible();
     await page.keyboard.press('Escape');
     await expect(page.locator(DISCLOSURE)).toBeHidden();
     await expect(trigger).toBeFocused();
@@ -79,10 +81,7 @@ test.describe('mobile drawer', () => {
   });
 
   test('dialog semantics + opens on toggle [Tier A]', async ({page}) => {
-    // Locate by aria-controls, not the label: the label flips Open menu ↔ Close
-    // menu, and once open there is also a second "Close menu" button inside the
-    // drawer, so /menu/i would be ambiguous.
-    const toggle = page.locator('button[aria-controls="zc-mobile-drawer"]');
+    const toggle = page.locator(TOGGLE);
     await expect(toggle).toHaveAttribute('aria-controls', 'zc-mobile-drawer');
     await expect(toggle).toHaveAttribute('aria-expanded', 'false');
 
@@ -94,38 +93,35 @@ test.describe('mobile drawer', () => {
 
     await toggle.click();
     await expect(drawer).toBeVisible();
-    // aria-expanded on the controlling button flips to reflect the open dialog.
     await expect(toggle).toHaveAttribute('aria-expanded', 'true');
   });
 
-  test('closes with an accessible control @contract', async ({page}) => {
-    test.fixme(
-      true,
-      'pending brand navbar remediation (in-drawer close button)',
-    );
-    await page.getByRole('button', {name: /Open menu/}).click();
-    await page.getByRole('button', {name: /Close menu/}).click();
+  test('closes with an accessible in-drawer control @contract', async ({
+    page,
+  }) => {
+    await page.locator(TOGGLE).click();
+    await expect(page.locator(DRAWER)).toBeVisible();
+    await page.locator(DRAWER_CLOSE).click();
     await expect(page.locator(DRAWER)).toBeHidden();
   });
 
   test('focus enters the drawer on open @contract', async ({page}) => {
-    test.fixme(true, 'pending brand navbar remediation (focus management)');
-    await page.getByRole('button', {name: /Open menu/}).click();
-    const active = page.locator(':focus');
-    await expect(page.locator(DRAWER)).toContainText(
-      (await active.textContent()) ?? '',
+    await page.locator(TOGGLE).click();
+    await expect(page.locator(DRAWER)).toBeVisible();
+    // The focused element is inside the drawer.
+    const focusedInDrawer = await page.evaluate(
+      (sel) => !!document.querySelector(sel)?.contains(document.activeElement),
+      DRAWER,
     );
+    expect(focusedInDrawer).toBe(true);
   });
 
   test('Escape closes and returns focus to the toggle @contract', async ({
     page,
   }) => {
-    test.fixme(
-      true,
-      'pending brand navbar remediation (focus return + Escape)',
-    );
-    const toggle = page.getByRole('button', {name: /Open menu/});
+    const toggle = page.locator(TOGGLE);
     await toggle.click();
+    await expect(page.locator(DRAWER)).toBeVisible();
     await page.keyboard.press('Escape');
     await expect(page.locator(DRAWER)).toBeHidden();
     await expect(toggle).toBeFocused();
@@ -134,8 +130,8 @@ test.describe('mobile drawer', () => {
   test('body scroll is locked while the drawer is open @contract', async ({
     page,
   }) => {
-    test.fixme(true, 'pending brand navbar remediation (scroll lock)');
-    await page.getByRole('button', {name: /Open menu/}).click();
+    await page.locator(TOGGLE).click();
+    await expect(page.locator(DRAWER)).toBeVisible();
     const overflow = await page.evaluate(
       () => getComputedStyle(document.body).overflow,
     );
