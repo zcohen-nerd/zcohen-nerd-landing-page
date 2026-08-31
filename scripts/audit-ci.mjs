@@ -67,12 +67,22 @@ function readAudit() {
       /* fall through */
     }
   }
-  return JSON.parse(
-    execSync('npm audit --json', {
-      encoding: 'utf8',
-      maxBuffer: 64 * 1024 * 1024,
-    }),
-  );
+  // `npm audit` exits non-zero whenever *any* advisory exists, so execSync
+  // throws — but the report JSON is still on the error's stdout. This gate does
+  // its own severity/exposure triage, so a non-zero exit here is expected.
+  try {
+    return JSON.parse(
+      execSync('npm audit --json', {
+        encoding: 'utf8',
+        maxBuffer: 64 * 1024 * 1024,
+      }),
+    );
+  } catch (e) {
+    if (e && typeof e.stdout === 'string' && e.stdout.trim()) {
+      return JSON.parse(e.stdout);
+    }
+    throw e;
+  }
 }
 
 // Advisory-package names that, in a Docusaurus project, are always reached

@@ -1,4 +1,3 @@
-import React from 'react';
 
 /**
  * Custom 404 content (swizzled @theme/NotFound/Content).

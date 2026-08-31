@@ -1,4 +1,3 @@
-import React from 'react';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import projects from '@zcohen-nerd/brand/src/data/projects';
