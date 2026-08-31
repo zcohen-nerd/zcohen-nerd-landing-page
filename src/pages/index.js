@@ -114,8 +114,7 @@ const SELECTED_WORK = [
     status: 'Deployed',
     problem:
       'A 20-vessel holonomic autonomous surface-vehicle fleet for scaled maritime-autonomy research — ten vessels run concurrently in a Spring 2026 course.',
-    role:
-      'Owned the full vessel redesign and its systems integration — architecture, one-piece SLA hull, four custom circuit boards, and embedded firmware through first-water deployment; faculty own the higher-level autonomy software.',
+    role: 'Owned the full vessel redesign and its systems integration — architecture, one-piece SLA hull, four custom circuit boards, and embedded firmware through first-water deployment; faculty own the higher-level autonomy software.',
     evidence:
       'First redesigned vessel deployed in 2025; per-hull fabrication cost cut from ≈$2,500 to ≈$400 and the print-failure rate from ≈70% to ≈10%.',
     image: {
@@ -132,8 +131,7 @@ const SELECTED_WORK = [
     status: 'Deployed',
     problem:
       'A pan-tilt robotic turret that consolidates motor control, sensing, and safety into one RP2040 embedded controller — a maintainable mechatronics teaching platform.',
-    role:
-      'Architected and built the platform end to end — system and electromechanical architecture, mechanical design, control electronics and PCB, and reference firmware; users’ vision and targeting software runs on external compute.',
+    role: 'Architected and built the platform end to end — system and electromechanical architecture, mechanical design, control electronics and PCB, and reference firmware; users’ vision and targeting software runs on external compute.',
     evidence:
       'Used by 100+ students per year in its U.S. Naval Academy deployment, released publicly as open source, and selected for an Autodesk University 2025 presentation.',
     image: {
@@ -150,8 +148,7 @@ const SELECTED_WORK = [
     status: 'Prototype',
     problem:
       'A hardened breakout and target-interface board for the STLINK-V3MODS debugger — protected power entry, default-off switched target rails, hybrid level translation, and CAN FD.',
-    role:
-      'Sole designer — schematic, 4-layer PCB, protection and power architecture, and the full fabrication package (Gerbers, ODB++, BOM) in the open-source repository.',
+    role: 'Sole designer — schematic, 4-layer PCB, protection and power architecture, and the full fabrication package (Gerbers, ODB++, BOM) in the open-source repository.',
     evidence:
       'Beta PCBs fabricated and in hand; manual assembly and bring-up underway against an in-repo bench-validation plan — no measurement records published yet.',
     image: {
@@ -177,7 +174,8 @@ function SelectedWorkCard({item}) {
     <a
       href={item.href}
       className={styles.workCard}
-      style={{'--card-accent': item.accent}}>
+      style={{'--card-accent': item.accent}}
+    >
       <div className={styles.workMedia}>
         <img
           src={item.image.src}
@@ -194,7 +192,8 @@ function SelectedWorkCard({item}) {
           <h3 className={styles.workTitle}>{item.name}</h3>
           <span
             className={styles.workStatus}
-            style={{color: pill.color, background: pill.background}}>
+            style={{color: pill.color, background: pill.background}}
+          >
             {item.status}
           </span>
         </div>
@@ -249,14 +248,16 @@ function ProjectCard({project}) {
         '--card-soft': project.accentSoft,
         '--card-tint': project.accentTint,
         '--card-enter': project.enterColor,
-      }}>
+      }}
+    >
       <div className={styles.cardTop}>
         <div className={styles.iconTile} aria-hidden="true">
           {project.emoji}
         </div>
         <span
           className={styles.statusPill}
-          style={{color: project.status.color, background: project.status.bg}}>
+          style={{color: project.status.color, background: project.status.bg}}
+        >
           {project.status.label}
         </span>
       </div>

@@ -1,4 +1,3 @@
-
 /**
  * Custom 404 content (swizzled @theme/NotFound/Content).
  * Rendered inside the standard Layout, so the shared Navbar/Footer and
@@ -12,7 +11,8 @@ export default function NotFoundContent() {
         margin: '0 auto',
         padding: '96px 24px 120px',
         textAlign: 'center',
-      }}>
+      }}
+    >
       <h1 style={{fontSize: 40, marginBottom: 12}}>Page not found</h1>
       <p style={{fontSize: 17, lineHeight: 1.6}}>
         That page isn&rsquo;t part of the ecosystem — it may have moved, or the
@@ -25,7 +25,8 @@ export default function NotFoundContent() {
           marginTop: 28,
           fontSize: 16,
           lineHeight: 2.2,
-        }}>
+        }}
+      >
         <li>
           <a href="/">Return to the hub →</a>
         </li>
