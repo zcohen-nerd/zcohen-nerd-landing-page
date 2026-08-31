@@ -1,0 +1,19 @@
+# Generated / vendored — never format
+node_modules/
+build/
+lib/
+.docusaurus/
+coverage/
+playwright-report/
+test-results/
+package-lock.json
+*.min.*
+*.snap
+
+# Auto-generated content
+CHANGELOG.md
+
+# Markdown / MDX prose is owned by markdownlint-cli2, not Prettier
+# (keeps Prettier from reflowing hand-authored docs).
+*.md
+*.mdx

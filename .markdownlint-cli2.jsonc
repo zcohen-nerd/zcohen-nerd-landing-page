@@ -1,0 +1,42 @@
+// Shared markdownlint-cli2 config — kept in sync by hand across the four
+// zcohen-nerd repos. Last synced 2026-08-31.
+{
+  "config": {
+    "default": true,
+    // Line length: prose + tables + long URLs — not worth enforcing.
+    "MD013": false,
+    // Inline HTML: required by MDX / Docusaurus admonitions and components.
+    "MD033": false,
+    // First line top-level heading: pages lead with YAML front matter.
+    "MD041": false,
+    // Duplicate headings: only a problem when they are siblings (anchor clash).
+    "MD024": {"siblings_only": true},
+    // Ordered-list numbering style: allow both "1." everywhere and "1. 2. 3.".
+    "MD029": {"style": "one_or_ordered"},
+    // Bare URLs are fine in changelogs / reference notes.
+    "MD034": false,
+    // Emphasis-as-heading: fires on intentional lead-in emphasis under an H1;
+    // too noisy to enforce on hand-written READMEs.
+    "MD036": false,
+    // Table pipe-spacing style — purely cosmetic, and not worth churning the
+    // existing hand-authored tables over.
+    "MD060": false,
+  },
+  // No "globs" key on purpose: markdownlint-cli2 *merges* config globs with any
+  // paths passed on the CLI, which would defeat `lint:md`'s changed-files
+  // scoping. `lint:md:all` passes the globs explicitly instead.
+  "ignores": [
+    "node_modules",
+    "build",
+    "lib",
+    ".docusaurus",
+    "coverage",
+    "playwright-report",
+    "CHANGELOG.md",
+    "**/CHANGELOG.md",
+    ".github/ISSUE_TEMPLATE",
+    "**/*_REPORT.md",
+    "**/*-REPORT*.md",
+    "docs/reports/**",
+  ],
+}

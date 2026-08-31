@@ -1,0 +1,9 @@
+{
+  "_comment": "Budgets start ~15% above the verified 2026-08 baseline so routine content edits do not trip them; ratchet down after any bundle optimisation (see CONTRIBUTING.md).",
+  "routes": ["/", "/about/", "/404.html"],
+  "initialJsGzipKB": 165,
+  "initialCssGzipKB": 20,
+  "allJsRawKB": 640,
+  "criticalHeadAssets": 6,
+  "perRouteInlineMediaKB": {"default": 900}
+}

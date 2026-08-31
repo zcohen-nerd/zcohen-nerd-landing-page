@@ -145,6 +145,178 @@
   color: #e8eef6;
 }
 
+/* Capability qualifier — sits between the subcopy and the byline. */
+.heroQualifier {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #cdd9e8;
+  margin: 18px 0 0;
+  max-width: 620px;
+  padding-left: 14px;
+  border-left: 2px solid var(--zc-cyan-500);
+}
+
+/* Compact tertiary route to the About page. */
+.heroTertiary {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: var(--zc-weight-semibold);
+  color: #aebed1;
+  text-decoration: none;
+}
+
+.heroTertiary:hover {
+  color: #e8eef6;
+  text-decoration: none;
+}
+
+/* ── Selected engineering work (curated proof layer) ───────────────────────── */
+.selectedWork {
+  background: var(--zc-color-bg);
+  border-bottom: 1px solid var(--zc-color-border);
+}
+
+.selectedWorkInner {
+  max-width: var(--zc-width-content);
+  margin: 0 auto;
+  padding: 72px 40px 84px;
+}
+
+.sectionHeadSelected {
+  margin-bottom: 12px;
+}
+
+/* The shared .sectionSub carries a -24px top margin tuned for the ecosystem
+   section's header spacing; neutralise it here so the intro clears the H2. */
+.selectedWork .sectionSub {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.workGrid {
+  display: grid;
+  /* 3-up on desktop (the ~1060px content column fits 3×300 + 2×gap); auto-fit
+     then collapses to 2-up on tablet and 1-up on mobile without leaving an
+     orphan card. `min(100%, 300px)` keeps a single column from overflowing
+     narrow (360px) viewports. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 22px;
+  margin-top: 28px;
+}
+
+/* Explicit tablet band: below the 3-up content column but above phone width,
+   hold a clean 2-up so the third card isn't a lone full-width row. */
+@media (max-width: 1024px) and (min-width: 721px) {
+  .workGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.workCard {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--zc-color-border);
+  border-top: 4px solid var(--card-accent);
+  border-radius: var(--zc-radius-xl);
+  overflow: hidden;
+  box-shadow: var(--zc-shadow-md);
+  text-decoration: none;
+  transition: transform var(--zc-transition), box-shadow var(--zc-transition),
+    border-color var(--zc-transition);
+}
+
+.workCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--zc-shadow-lg);
+  text-decoration: none;
+}
+
+/* Whole-card link — give it an unmistakable keyboard focus ring. */
+.workCard:focus-visible {
+  outline: 3px solid var(--card-accent);
+  outline-offset: 3px;
+}
+
+.workMedia {
+  background: var(--zc-color-rail);
+  border-bottom: 1px solid var(--zc-color-border);
+}
+
+/* One uniform media box regardless of each source image's native ratio.
+   aspect-ratio + width:100% gives a definite box; object-fit crops into it.
+   The <img> keeps its intrinsic width/height attributes for pre-CSS CLS. */
+.workImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.workBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 24px 24px;
+}
+
+.workTop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.workTitle {
+  font-size: 19px;
+  font-weight: var(--zc-weight-bold);
+  color: var(--zc-color-text);
+  margin: 0;
+}
+
+.workStatus {
+  flex-shrink: 0;
+  font-family: var(--zc-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--zc-radius-pill);
+}
+
+.workProblem {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--zc-color-text);
+  margin: 0;
+}
+
+.workMeta {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--zc-color-text-muted);
+  margin: 0;
+}
+
+.workMetaLabel {
+  display: block;
+  font-family: var(--zc-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--zc-color-text-subtle);
+  margin-bottom: 2px;
+}
+
+.workEnter {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: var(--zc-weight-semibold);
+  color: var(--card-accent);
+}
+
 /* ── Ecosystem grid ─────────────────────────────────────────────────────────── */
 .ecosystem {
   max-width: var(--zc-width-content);
@@ -329,8 +501,16 @@
   .ecosystem {
     padding: 56px 20px 72px;
   }
-  .grid {
+  .selectedWorkInner {
+    padding: 52px 20px 60px;
+  }
+  .grid,
+  .workGrid {
     grid-template-columns: 1fr;
+  }
+  .workTop {
+    flex-wrap: wrap;
+    gap: 8px;
   }
   .sectionHead {
     flex-direction: column;

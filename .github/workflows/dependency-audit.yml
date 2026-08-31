@@ -1,0 +1,41 @@
+name: dependency-audit
+
+# Reports residual npm advisories and fails only on direct or
+# possibly-runtime-exposed high/critical findings. Build-only and
+# dev-server-only advisories are listed but do not fail the run.
+# Documented exceptions live in .github/audit-allowlist.json.
+
+on:
+  schedule:
+    - cron: "23 6 * * 1" # Mondays 06:23 UTC, after Dependabot opens its PRs
+  pull_request:
+    paths:
+      - "package.json"
+      - "package-lock.json"
+      - ".github/audit-allowlist.json"
+      - ".github/workflows/dependency-audit.yml"
+      - "scripts/audit-ci.mjs"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install (lockfile-exact)
+        run: npm ci --no-audit --no-fund
+
+      - name: Audit gate
+        run: npm audit --json | node scripts/audit-ci.mjs

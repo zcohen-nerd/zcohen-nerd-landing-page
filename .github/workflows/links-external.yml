@@ -1,0 +1,35 @@
+name: links-external
+
+# Outbound-link check. Scheduled + manual only — never a PR gate, because a
+# third-party host returning 429/503 must not block a content change. Runs with
+# --warn-only and publishes reports/quality/linkinator.json for periodic review.
+# Internal links/anchors are already enforced strictly at build time
+# (onBrokenLinks / onBrokenAnchors: 'throw').
+
+on:
+  schedule:
+    - cron: "31 6 * * 1" # Mondays 06:31 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  external-links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: node scripts/check-external-links.mjs --warn-only
+      - if: always()
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        with:
+          name: linkinator-report
+          path: reports/quality/linkinator.json
+          retention-days: 30

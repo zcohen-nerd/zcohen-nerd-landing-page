@@ -1,0 +1,8 @@
+#!/bin/sh
+# Opt-in pre-commit hook. Enable with:
+#
+#     git config core.hooksPath .githooks
+#
+# Runs Prettier + ESLint + markdownlint on *staged* files only (fast). Full-repo
+# checks run in CI. See CONTRIBUTING.md.
+exec npx --no-install lint-staged
