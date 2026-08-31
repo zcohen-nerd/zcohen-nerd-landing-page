@@ -1,0 +1,39 @@
+{
+  "recurse": true,
+  "silent": true,
+  "retry": true,
+  "retryErrors": true,
+  "retryErrorsCount": 3,
+  "retryErrorsJitter": 400,
+  "timeout": 30000,
+  "concurrency": 24,
+  "skip": [
+    "^mailto:",
+    "^tel:",
+
+    "linkedin\\.com",
+    "(^|\\.)x\\.com",
+    "twitter\\.com",
+    "instagram\\.com",
+    "facebook\\.com",
+    "reddit\\.com",
+
+    "^https?://(www\\.)?autodesk\\.com",
+
+    "iso\\.org",
+    "iec\\.ch",
+    "ieee\\.org",
+    "sae\\.org",
+    "astm\\.org",
+    "jedec\\.org",
+    "globalspec\\.com",
+    "webstore\\.ansi\\.org",
+
+    "harting\\.com",
+    "te\\.com",
+    "molex\\.com",
+    "amphenol",
+    "tme\\.com",
+    "deutschconnectors\\.com"
+  ]
+}

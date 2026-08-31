@@ -22,6 +22,7 @@ const config = {
   projectName: 'zcohen-nerd-landing-page',
 
   onBrokenLinks: 'throw',
+  onBrokenAnchors: 'throw',
   markdown: {
     hooks: {
       onBrokenMarkdownLinks: 'throw',
