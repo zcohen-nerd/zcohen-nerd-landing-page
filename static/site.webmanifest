@@ -1,0 +1,13 @@
+{
+  "name": "zcohen-nerd — Engineering, Systems Thinking, and Modern Literacy",
+  "short_name": "zcohen-nerd",
+  "description": "Practical engineering, systems thinking, and modern literacy — documented in public.",
+  "start_url": "./",
+  "display": "browser",
+  "background_color": "#0a1428",
+  "theme_color": "#0a1428",
+  "icons": [
+    {"src": "img/icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "img/icon-512.png", "sizes": "512x512", "type": "image/png"}
+  ]
+}

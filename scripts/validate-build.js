@@ -127,7 +127,9 @@ check('About keeps LinkedIn link', aboutHtml.includes('linkedin.com/in/zachary-c
 const indexVisible = indexHtml.replace(/<script[\s\S]*?<\/script>/g, '');
 check('homepage has Current Focus section', indexVisible.includes('Current focus'));
 check('obsolete Who’s-behind heading absent', !indexVisible.includes('Who’s behind this?') && !indexVisible.includes('Who&#x27;s behind this?'));
-const headshotCount = (indexHtml.match(/zachary-cohen-headshot/g) || []).length;
+// Count the *visible* headshot only — the same file name also appears in the
+// Person JSON-LD `image` field, which is expected and not a second portrait.
+const headshotCount = (indexVisible.match(/zachary-cohen-headshot/g) || []).length;
 check('exactly one headshot on homepage (hero byline)', headshotCount === 1, `found ${headshotCount}`);
 const focusStart = indexHtml.indexOf('Current focus');
 const focusRegion = focusStart === -1 ? '' : indexHtml.slice(focusStart);
@@ -140,6 +142,124 @@ check('custom 404 content present', notFound.includes('part of the ecosystem'));
 check('404 links to hub home and portfolio', notFound.includes('href="/"') && notFound.includes('https://portfolio.zcohen-nerd.com/'));
 const hubTitle = (indexHtml.match(/<title[^>]*>([^<]+)<\/title>/) || [])[1] || '';
 check('hub homepage title under 70 chars', hubTitle.length <= 70, `${hubTitle.length} chars`);
+
+// ── Selected engineering work — curated professional proof layer ─────────
+// This section is hand-maintained (exactly three flagship systems) and sits
+// immediately after the hero and before the shared registry-driven ecosystem.
+const registry = require('@zcohen-nerd/brand/src/data/projects');
+const registryList = Array.isArray(registry) ? registry : registry.projects;
+
+const workStart = indexHtml.indexOf('id="selected-work"');
+const ecoStart = indexHtml.indexOf('id="ecosystem"');
+check('selected-work section present', workStart !== -1);
+check('selected-work sits before the ecosystem', workStart !== -1 && ecoStart > workStart, `work@${workStart} eco@${ecoStart}`);
+const heroRegion = workStart !== -1 ? indexHtml.slice(0, workStart) : indexHtml;
+const workSection = workStart !== -1 && ecoStart > workStart ? indexHtml.slice(workStart, ecoStart) : '';
+
+// Exactly three flagship cards, each a single whole-card link (no nested <a>).
+const workTitles = [...workSection.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((m) => m[1].replace(/<[^>]+>/g, '').trim());
+check('exactly three flagship cards', workTitles.length === 3, `found ${workTitles.length}: ${workTitles.join(' | ')}`);
+const FLAGSHIP = {
+  'SURFER Autonomous Vessel Fleet': {
+    url: 'https://portfolio.zcohen-nerd.com/projects/surfer-fleet/',
+    status: 'Deployed',
+    asset: 'surfer-on-water.webp',
+  },
+  'SENTRY V3': {
+    url: 'https://portfolio.zcohen-nerd.com/projects/sentry-v3/',
+    status: 'Deployed',
+    asset: 'sentry-turret-labeled.webp',
+  },
+  'SPARK Programming Board': {
+    url: 'https://portfolio.zcohen-nerd.com/projects/stlink-v3mods/',
+    status: 'Prototype',
+    asset: 'spark-board-perspective.webp',
+  },
+};
+check('flagship cards are exactly SURFER / SENTRY V3 / SPARK',
+  workTitles.length === 3 && workTitles.every((t) => t in FLAGSHIP),
+  workTitles.join(' | '));
+const workAnchors = (workSection.match(/<a\b/g) || []).length;
+check('three whole-card links, no nested anchors', workAnchors === 3, `found ${workAnchors} <a> in section`);
+
+// Per-card: canonical Portfolio URL + truthful status text.
+for (const [name, meta] of Object.entries(FLAGSHIP)) {
+  check(`canonical URL for ${name}`, workSection.includes(`href="${meta.url}"`), meta.url);
+  const titleIdx = workSection.indexOf(`>${name}</h3>`);
+  const cardStart = titleIdx === -1 ? -1 : workSection.lastIndexOf('<a ', titleIdx);
+  const cardEnd = titleIdx === -1 ? -1 : (() => {
+    const next = workSection.indexOf('<a ', titleIdx);
+    return next === -1 ? workSection.length : next;
+  })();
+  const card = cardStart === -1 ? '' : workSection.slice(cardStart, cardEnd);
+  check(`status pill for ${name} reads "${meta.status}"`, card.includes(`>${meta.status}<`), titleIdx === -1 ? 'card not found' : 'status text missing');
+}
+// SPARK must not be dressed up as Deployed.
+const sparkIdx = workSection.indexOf('>SPARK Programming Board</h3>');
+const sparkCard = sparkIdx === -1 ? '' : workSection.slice(workSection.lastIndexOf('<a ', sparkIdx), workSection.indexOf('<a ', sparkIdx) === -1 ? workSection.length : workSection.indexOf('<a ', sparkIdx));
+check('SPARK is not labelled Deployed', sparkIdx !== -1 && !sparkCard.includes('>Deployed<'));
+
+// Status vocabulary in the hub proof layer stays on the approved set and
+// never drifts into legacy tokens (Beta without "Public", Live, WIP, …).
+const HUB_APPROVED_STATUS = ['Deployed', 'Prototype', 'Public Beta', 'Concept'];
+const workStatusPills = [...workSection.matchAll(/class="[^"]*workStatus[^"]*"[^>]*>\s*([^<]+?)\s*</g)].map((m) => m[1].trim());
+check('proof-layer status pills present', workStatusPills.length === 3, `found ${workStatusPills.length}: ${workStatusPills.join(' | ')}`);
+for (const p of workStatusPills) {
+  check(`proof-layer status "${p}" is approved hub vocabulary`, HUB_APPROVED_STATUS.includes(p));
+}
+check('proof layer has no drifted status token',
+  !/>\s*(?:WIP|Alpha|Beta|Live|Coming soon|In progress)\s*</i.test(
+    workSection.replace(/>\s*Public Beta\s*</gi, '><'),
+  ));
+
+// Each card carries a role/ownership line and an evidence line.
+check('every card shows a Role line', (workSection.match(/>Role</g) || []).length === 3);
+check('every card shows an Evidence line', (workSection.match(/>Evidence</g) || []).length === 3);
+
+// Image metadata: three <img>, each with explicit width+height, non-empty alt,
+// lazy loading, and an efficient (.webp) format; assets must be in the build.
+const workImgs = [...workSection.matchAll(/<img\b[^>]*>/g)].map((m) => m[0]);
+check('three flagship images', workImgs.length === 3, `found ${workImgs.length}`);
+for (const img of workImgs) {
+  check('flagship image has explicit width+height', /\bwidth="\d+"/.test(img) && /\bheight="\d+"/.test(img), img.slice(0, 140));
+  check('flagship image has meaningful alt text', /\balt="[^"]{12,}"/.test(img), img.slice(0, 140));
+  check('flagship image is lazy-loaded .webp', img.includes('loading="lazy"') && /src="[^"]+\.webp"/.test(img), img.slice(0, 140));
+}
+for (const meta of Object.values(FLAGSHIP)) {
+  check(`flagship asset built: img/work/${meta.asset}`, fs.existsSync(path.join(build, 'img', 'work', meta.asset)));
+}
+
+// This section must not become a second global registry: no non-flagship
+// registry projects should be injected into it.
+const leaked = registryList
+  .map((p) => p.name)
+  .filter((n) => !(n in FLAGSHIP) && workSection.includes(`>${n}<`));
+check('proof layer is curated, not the whole registry', leaked.length === 0, `leaked: ${leaked.join(', ')}`);
+
+// Hero actions: primary → selected work, secondary → full ecosystem, About kept.
+check('hero primary action points to #selected-work', heroRegion.includes('href="#selected-work"'));
+check('hero secondary action points to #ecosystem', heroRegion.includes('href="#ecosystem"'));
+check('hero keeps an About route', heroRegion.includes('href="/about"'));
+
+// Hero capability qualifier must cover the five declared areas.
+const heroText = heroRegion.replace(/<[^>]+>/g, ' ').replace(/&mdash;|&amp;/g, ' ');
+for (const [label, re] of [
+  ['autonomous maritime', /autonomous maritime/i],
+  ['robotics', /robotic/i],
+  ['embedded hardware', /embedded/i],
+  ['systems integration', /systems integration|integrat/i],
+  ['field deployment', /field deployment|deploy/i],
+]) {
+  check(`hero qualifier covers ${label}`, re.test(heroText));
+}
+
+// The shared registry-driven ecosystem must still render every canonical entry.
+const ecoSection = ecoStart !== -1 ? indexHtml.slice(ecoStart) : '';
+check('registry has the expected 8 canonical entries', registryList.length === 8, `got ${registryList.length}`);
+for (const p of registryList) {
+  check(`ecosystem still renders registry entry: ${p.name}`, ecoSection.includes(p.name), p.name);
+  check(`ecosystem still links registry href: ${p.name}`, ecoSection.includes(`href="${p.href}"`), p.href);
+}
 
 if (failures.length) {
   console.error(`\n${failures.length} validation failure(s).`);
