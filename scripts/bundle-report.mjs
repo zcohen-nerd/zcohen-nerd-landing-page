@@ -23,7 +23,7 @@ import {
   readdirSync,
   statSync,
 } from 'node:fs';
-import {join, dirname, extname} from 'node:path';
+import {join, extname} from 'node:path';
 import {gzipSync} from 'node:zlib';
 
 const reportOnly = process.argv.includes('--report-only');

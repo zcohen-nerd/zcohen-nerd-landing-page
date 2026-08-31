@@ -9,6 +9,10 @@
     "MD033": false,
     // First line top-level heading: pages lead with YAML front matter.
     "MD041": false,
+    // Single H1: Docusaurus pages carry a `title:` in front matter *and* a
+    // matching `# H1` in the body (that becomes the page H1; the front-matter
+    // title only sets <title>). Don't treat the front-matter title as an H1.
+    "MD025": {"front_matter_title": ""},
     // Duplicate headings: only a problem when they are siblings (anchor clash).
     "MD024": {"siblings_only": true},
     // Ordered-list numbering style: allow both "1." everywhere and "1. 2. 3.".

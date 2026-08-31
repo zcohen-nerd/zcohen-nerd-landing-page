@@ -79,7 +79,10 @@ const config = {
     },
     // Icons + a minimal, non-PWA web manifest (display: "browser", no service
     // worker). Docusaurus already emits <link rel="icon"> from `favicon`.
-    {tagName: 'link', attributes: {rel: 'apple-touch-icon', href: '/apple-touch-icon.png'}},
+    {
+      tagName: 'link',
+      attributes: {rel: 'apple-touch-icon', href: '/apple-touch-icon.png'},
+    },
     {tagName: 'link', attributes: {rel: 'manifest', href: '/site.webmanifest'}},
     {tagName: 'meta', attributes: {name: 'theme-color', content: '#0a1428'}},
     // Search Console verification — paste the token from Google Search Console /

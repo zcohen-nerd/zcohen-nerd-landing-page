@@ -121,7 +121,9 @@
   padding: 13px 24px;
   border-radius: var(--zc-radius-md);
   text-decoration: none;
-  transition: background var(--zc-transition), border-color var(--zc-transition);
+  transition:
+    background var(--zc-transition),
+    border-color var(--zc-transition);
 }
 
 .btnPrimary {
@@ -223,7 +225,9 @@
   overflow: hidden;
   box-shadow: var(--zc-shadow-md);
   text-decoration: none;
-  transition: transform var(--zc-transition), box-shadow var(--zc-transition),
+  transition:
+    transform var(--zc-transition),
+    box-shadow var(--zc-transition),
     border-color var(--zc-transition);
 }
 
@@ -385,7 +389,9 @@
   padding: 28px;
   box-shadow: var(--zc-shadow-md);
   text-decoration: none;
-  transition: transform var(--zc-transition), box-shadow var(--zc-transition),
+  transition:
+    transform var(--zc-transition),
+    box-shadow var(--zc-transition),
     border-color var(--zc-transition);
 }
 

@@ -38,4 +38,4 @@ jobs:
         run: npm ci --no-audit --no-fund
 
       - name: Audit gate
-        run: npm audit --json | node scripts/audit-ci.mjs
+        run: node scripts/audit-ci.mjs
