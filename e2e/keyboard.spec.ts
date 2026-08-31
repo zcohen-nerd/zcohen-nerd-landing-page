@@ -79,7 +79,10 @@ test.describe('mobile drawer', () => {
   });
 
   test('dialog semantics + opens on toggle [Tier A]', async ({page}) => {
-    const toggle = page.getByRole('button', {name: /Open menu/});
+    // Locate by aria-controls, not the label: the label flips Open menu ↔ Close
+    // menu, and once open there is also a second "Close menu" button inside the
+    // drawer, so /menu/i would be ambiguous.
+    const toggle = page.locator('button[aria-controls="zc-mobile-drawer"]');
     await expect(toggle).toHaveAttribute('aria-controls', 'zc-mobile-drawer');
     await expect(toggle).toHaveAttribute('aria-expanded', 'false');
 
@@ -92,10 +95,7 @@ test.describe('mobile drawer', () => {
     await toggle.click();
     await expect(drawer).toBeVisible();
     // aria-expanded on the controlling button flips to reflect the open dialog.
-    await expect(page.getByRole('button', {name: /menu/i})).toHaveAttribute(
-      'aria-expanded',
-      'true',
-    );
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
   });
 
   test('closes with an accessible control @contract', async ({page}) => {

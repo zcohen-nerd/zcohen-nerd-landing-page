@@ -168,8 +168,8 @@ const SELECTED_WORK = [
 // Status pill palette — mirrors the registry's status colours so a "Deployed"
 // system reads the same here as a "Live" destination does in the grid below.
 const WORK_STATUS_STYLE = {
-  Deployed: {color: '#2e8555', background: 'rgba(46,133,85,.1)'},
-  Prototype: {color: '#b06f00', background: 'rgba(176,111,0,.12)'},
+  Deployed: {color: '#277048', background: 'rgba(46,133,85,.1)'},
+  Prototype: {color: '#8a5600', background: 'rgba(176,111,0,.12)'},
 };
 
 function SelectedWorkCard({item}) {

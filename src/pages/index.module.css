@@ -314,7 +314,9 @@
   margin-top: 4px;
   font-size: 14px;
   font-weight: var(--zc-weight-semibold);
-  color: var(--card-accent);
+  /* Decorative (aria-hidden) affordance. Card accents run as light as
+     cyan-500, which is ~2.4:1 on white — use the AA link colour instead. */
+  color: var(--zc-color-link);
 }
 
 /* ── Ecosystem grid ─────────────────────────────────────────────────────────── */
