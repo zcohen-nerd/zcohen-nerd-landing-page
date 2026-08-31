@@ -6,6 +6,14 @@ build/
 .docusaurus/
 .cache-loader/
 
+# Quality-gate tooling output
+coverage/
+playwright-report/
+playwright/.cache/
+test-results/
+.size-limit.cache/
+reports/quality/
+
 # Misc
 .DS_Store
 *.log

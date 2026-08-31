@@ -1,0 +1,41 @@
+{
+  "_comment": "Advisories accepted as residual risk, enforced by scripts/audit-ci.mjs. Every entry lists the installed version, the full dependency path, whether an upstream fix exists, the exposure classification, and a review_by date. Once review_by passes, the audit gate fails until the entry is re-justified or removed. None of these advisories are reachable on the deployed static site or in a visitor's browser.",
+  "advisories": [
+    {
+      "package": "image-size",
+      "advisories": ["GHSA-w3rx-r6r6-pgpr", "GHSA-5p2g-fcmc-qvqq"],
+      "severity": "high",
+      "exposure": "build-only / content-parser",
+      "installed": "2.0.2",
+      "path": "@docusaurus/mdx-loader@3.10.2 > image-size@2.0.2",
+      "fix_available": false,
+      "reason": "image-size <= 2.0.2 has infinite-loop DoS bugs in its ICNS (GHSA-w3rx-r6r6-pgpr) and JXL/HEIF (GHSA-5p2g-fcmc-qvqq) decoders. image-size runs only during `docusaurus build`, when Docusaurus reads the intrinsic dimensions of images referenced from Markdown/MDX. It is never bundled into the deployed site and never runs in a browser. Exploitation requires committing a crafted ICNS/JXL/HEIF file to this repo's own content. image-size 2.0.3+ fixes it, but @docusaurus/mdx-loader (through 3.10.2) has an exact pin on image-size@2.0.2, so there is no lockfile-only or overrides-based fix that stays on the Docusaurus dependency set.",
+      "upstream": "https://github.com/facebook/docusaurus — needs a Docusaurus release that bumps @docusaurus/mdx-loader's image-size pin",
+      "review_by": "2026-11-30"
+    },
+    {
+      "package": "serialize-javascript",
+      "advisories": ["GHSA-5c6j-r48x-rmvq", "GHSA-qj8w-gfj5-8c6v"],
+      "severity": "high",
+      "exposure": "build-only",
+      "installed": "6.0.2",
+      "path": "@docusaurus/bundler@3.10.2 > (copy-webpack-plugin@11 | css-minimizer-webpack-plugin@5) > serialize-javascript@6.0.2",
+      "fix_available": false,
+      "reason": "serialize-javascript before 7.0.5 can be driven to RCE via RegExp.flags / Date.prototype.toISOString (GHSA-5c6j-r48x-rmvq, high) or to CPU exhaustion via crafted array-like objects (GHSA-qj8w-gfj5-8c6v, moderate) when it serializes attacker-controlled objects. In this chain it is only ever handed this repo's own webpack build configuration by copy-webpack-plugin / css-minimizer-webpack-plugin during `docusaurus build`. No user or content input reaches it and nothing from it ships to the deployed site. Both webpack plugins are transitive deps of @docusaurus/bundler with no local override that keeps the bundler working; npm audit reports fixAvailable:false.",
+      "upstream": "https://github.com/facebook/docusaurus — needs @docusaurus/bundler to bump copy-webpack-plugin / css-minimizer-webpack-plugin",
+      "review_by": "2026-11-30"
+    },
+    {
+      "package": "uuid",
+      "advisories": ["GHSA-w5hq-g745-h8pq"],
+      "severity": "moderate",
+      "exposure": "dev-server-only / unreachable code path",
+      "installed": "8.3.2",
+      "path": "webpack-dev-server@5.2.6 > sockjs@0.3.24 > uuid@8.3.2",
+      "fix_available": "npm reports fixAvailable:true, but the only fix is uuid@11 — a major bump of sockjs's declared uuid@^8.3.2 dependency, not a semver-safe lockfile-only update",
+      "reason": "uuid before 11.1.1 (GHSA-w5hq-g745-h8pq) is missing a buffer-bounds check in the v3/v5/v6 generators, but only on the code path where the caller passes a `buf` argument. sockjs calls `uuid.v4()` with no arguments, so the vulnerable branch is never entered. The dependency also exists only under webpack-dev-server, i.e. during `npm start` on a developer's localhost — it is not part of `docusaurus build` output and never runs on the deployed site. sockjs 0.3.24 (latest) still declares uuid@^8.3.2; forcing uuid@11 via `overrides` is a cross-major jump on a transitive-of-a-transitive and is deliberately not done here.",
+      "upstream": "https://github.com/sockjs/sockjs-node — needs sockjs to widen / bump its uuid dependency",
+      "review_by": "2026-11-30"
+    }
+  ]
+}

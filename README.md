@@ -23,3 +23,9 @@ The source for that landing page — a [Docusaurus](https://docusaurus.io/) site
 - 💼 [LinkedIn](https://www.linkedin.com/in/zachary-cohen-nerd/)
 - 🐙 [GitHub](https://github.com/zcohen-nerd)
 - ✉️ [zachary@zcohen-nerd.com](mailto:zachary@zcohen-nerd.com)
+
+## Quality gates
+
+Formatting, lint, link, accessibility, keyboard, responsive, and bundle-budget
+checks — and every local + CI command — are documented in
+[CONTRIBUTING.md](CONTRIBUTING.md).

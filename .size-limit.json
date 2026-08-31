@@ -1,0 +1,14 @@
+[
+  {
+    "name": "initial JS on the wire (main + runtime, gzip)",
+    "path": ["build/assets/js/main.*.js", "build/assets/js/runtime~main.*.js"],
+    "gzip": true,
+    "limit": "165 kB"
+  },
+  {
+    "name": "initial CSS on the wire (gzip)",
+    "path": "build/assets/css/styles.*.css",
+    "gzip": true,
+    "limit": "20 kB"
+  }
+]
