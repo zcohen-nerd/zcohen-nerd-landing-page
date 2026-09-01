@@ -244,12 +244,15 @@ check(
   !indexVisible.includes('Who’s behind this?') &&
     !indexVisible.includes('Who&#x27;s behind this?'),
 );
-// Count the *visible* headshot only — the same file name also appears in the
-// Person JSON-LD `image` field, which is expected and not a second portrait.
-const headshotCount = (indexVisible.match(/zachary-cohen-headshot/g) || [])
-  .length;
+// One visible portrait <img>, not two. The file name also appears in the
+// Person JSON-LD `image` field (stripped from indexVisible) and — since
+// responsive variants were added — several times within that one <img>'s
+// src + srcset, so count <img> elements rather than name occurrences.
+const headshotCount = (
+  indexVisible.match(/<img\b[^>]*zachary-cohen-headshot[^>]*>/g) || []
+).length;
 check(
-  'exactly one headshot on homepage (hero byline)',
+  'exactly one headshot <img> on homepage (hero byline)',
   headshotCount === 1,
   `found ${headshotCount}`,
 );

@@ -42,6 +42,10 @@ first-order dependencies:
 The Cloudflare items above are configured on the `zcohen-nerd.com` Cloudflare
 zone, not in this repository. If Cloudflare Web Analytics is disabled, the
 `static.cloudflareinsights.com` / `/cdn-cgi/rum` entries and the matching
-Content-Security-Policy allowances should be removed to match.
+Content-Security-Policy allowances should be removed to match — see
+[`CLOUDFLARE-OPERATOR-CHECKLIST.md`](CLOUDFLARE-OPERATOR-CHECKLIST.md) §A. That
+file also covers the cache-control rules, the `http://www` → apex redirect, the
+AI-crawler blocking policy, and the HSTS ramp — all Cloudflare-zone config, not
+in this repo.
 
 No web fonts are loaded from third-party hosts.
