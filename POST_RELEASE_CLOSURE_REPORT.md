@@ -3,8 +3,33 @@
 Window: 2026-08-30 → 2026-09-01. Scope: the zcohen-nerd website ecosystem
 (`zcohen-nerd-brand`, `zcohen-nerd-landing-page`, `Portfolio`,
 `connector-engineering-field-guide`, `PinmapGen`, `Fusion_System_Blocks`,
-`FusionToGitHub`). All work landed through reviewed PRs on green CI and was
-verified against the live sites.
+`FusionToGitHub`, `SPARK`). All work landed through reviewed PRs on green CI and
+was verified against the live sites.
+
+> **Final acceptance pass — 2026-09-01.** After this report was first written, an
+> independent evidence-and-acceptance pass re-inspected every repository and live
+> deployment. Its PASS/FAIL matrix, the SPARK physical-evidence decision, the
+> "30+ custom PCBs" evidence appendix, the rights re-verification, and the
+> quarterly maintenance checklist are in **[`FINAL_ACCEPTANCE.md`](./FINAL_ACCEPTANCE.md)**.
+> Deltas landed in that pass:
+>
+> - **SPARK** (`zcohen-nerd/SPARK` PR #2 → `e474e72`): the accurate V0.4 status
+>   table, `validation/EVIDENCE-CHECKLIST.md`, bring-up procedure + results
+>   template, `integrity.yml` CI. No physical evidence exists → SPARK stays
+>   **Prototype**, "no measurement records published".
+> - **Portfolio** PR #32 → `20eb22d` + **hub** PR #16 → `dab6308`: removed the
+>   unsupported "beta PCBs received / assembly underway" and "Gerbers" claims from
+>   the SPARK case study and Selected Work line (SPARK exports ODB++ only). Status
+>   unchanged (Prototype).
+> - **Portfolio** PR #33 → `204c2ce`: `/documentation/custom-pcb-portfolio/` —
+>   public-safe evidence appendix for the "30+ custom PCBs" figure.
+> - **Portfolio** PR #34 → `57aa459` + **hub** PR #17 → `f99f65f`: `NOTICE.md`
+>   rights re-verification — SENTRY asset count 12→11; landing NOTICE now covers
+>   the responsive variants and splits `work/*` by real rights.
+>
+> **Verdict: fully launched, in maintenance mode, with three documented,
+> credential-gated accepted limitations (OP-1/2/3) and SPARK physical evidence
+> visibly pending.**
 
 Two items require operator credentials this run did not have and are the only
 things not fully closed — see [Deferred operator actions](#deferred-operator-actions).
