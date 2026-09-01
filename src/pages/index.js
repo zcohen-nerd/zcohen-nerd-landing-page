@@ -151,9 +151,9 @@ const SELECTED_WORK = [
     status: 'Prototype',
     problem:
       'A hardened breakout and target-interface board for the STLINK-V3MODS debugger — protected power entry, default-off switched target rails, hybrid level translation, and CAN FD.',
-    role: 'Sole designer — schematic, 4-layer PCB, protection and power architecture, and the full fabrication package (Gerbers, ODB++, BOM) in the open-source repository.',
+    role: 'Sole designer — schematic, 4-layer PCB, protection and power architecture, and the fabrication package (ODB++, BOM) in the open-source repository.',
     evidence:
-      'Beta PCBs fabricated and in hand; manual assembly and bring-up underway against an in-repo bench-validation plan — no measurement records published yet.',
+      'Design complete — schematic, 4-layer PCB, ODB++ fabrication package, and BOM in the repository. A bench-validation plan is defined; it has not been executed and no fabrication, assembly, or measurement records are published.',
     image: {
       src: '/img/work/spark-board-perspective.webp',
       alt: 'Perspective CAD render of the SPARK programming board and its debug interface headers.',
