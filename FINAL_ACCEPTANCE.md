@@ -98,7 +98,18 @@ OG images are 1200×630 and absolute.
 blocked/indeterminate, 0 broken** (`timedOut: false`). The 5 blocked are 403-to-
 crawler bot walls (`phoenixcontact.com` ×2, `jst.com`, `digikey.com`,
 `wiki.dronecode.org`) — reachable in a browser, correctly classified as blocked,
-not dead. Portfolio and hub `links-external` workflows dispatched 2026-09-01.
+not dead.
+
+The Portfolio and hub `links-external` workflows dispatched 2026-09-01 were
+**cancelled at the 20-minute job timeout** — their (pre-fix) copy of
+`check-external-links.mjs` had no overall crawl cap and wedged on linkinator's
+queue. This workflow is a `--warn-only` scheduled diagnostic, never a PR gate, so
+this is not red required CI. The fix was ported from the guide and merged
+(Portfolio `9f1e3e1` [#35](https://github.com/zcohen-nerd/Portfolio/pull/35),
+hub `b10d506` [#19](https://github.com/zcohen-nerd/zcohen-nerd-landing-page/pull/19))
+and smoke-tested directly against the built Portfolio site: **115 links, 112 ok,
+3 skipped, 0 blocked, 0 broken, `timedOut: false`**. The next scheduled runs will
+self-cap at 8 minutes and publish a report.
 
 **CI:** every changed repository's `main` is green — guide (build / deploy-pages /
 quality), hub (build+deploy / quality), Portfolio (build+deploy / quality),
