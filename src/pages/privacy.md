@@ -55,7 +55,7 @@ two things to the page that are not in this repository's source:
   **cookieless**, does not use `localStorage`/`sessionStorage`, does not
   fingerprint, and does not track visitors across sites. It is aggregate traffic
   and performance measurement. See Cloudflare's
-  [Web Analytics privacy notes](https://developers.cloudflare.com/web-analytics/data-metrics/data-collection/)
+  [Web Analytics privacy notes](https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/)
   and [Cloudflare's privacy policy](https://www.cloudflare.com/privacypolicy/).
 - **Email address obfuscation.** Cloudflare serves a first-party script
   (`/cdn-cgi/scripts/…/email-decode.min.js`) that reassembles `mailto:` links in
