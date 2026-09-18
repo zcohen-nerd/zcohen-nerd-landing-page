@@ -28,7 +28,15 @@ I'm especially interested in electromechanical systems, robotics, embedded contr
 
 The "nerd" part of the name is intentional. I like deep dives. I like clean diagrams. I like weird edge cases. I like when a project has both a spreadsheet and a soldering iron involved. Most of all, I like building useful things and then explaining them clearly enough that someone else can build on them.
 
-This site is where all of that lives.
+This site is where the publicly shareable part of that work lives.
+
+## Open work. Closed boundaries
+
+I believe in building and sharing in public when the work is mine to share. My personal projects, educational resources, and independent engineering tools are often developed openly because documentation and reuse make them more useful.
+
+Professional work has its own information boundaries. Proprietary, customer-sensitive, export-controlled, classified, NDA-covered, and otherwise restricted information stays separate from this site. I am comfortable with professional work remaining entirely closed indefinitely; open source is not an expectation I place on an employer's work.
+
+Everything shown here is independently developed work, educational material, or other technical information I am authorized to share publicly. Documentation should reach the right audience — sometimes the entire Internet, sometimes only the people authorized to work on the program. Knowing what should never leave the program is part of engineering judgment.
 
 ## Want to talk?
 
