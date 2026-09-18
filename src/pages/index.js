@@ -36,8 +36,12 @@ function Hero() {
             modern literacy.
           </h1>
           <p className={styles.subcopy}>
-            A home base for the engineering projects, technical guides, and
-            education resources I&rsquo;m building in public.
+            A home base for my personal projects, technical guides, educational
+            resources, and publicly shareable engineering work.
+          </p>
+          <p className={styles.heroQualifier}>
+            I build openly where appropriate. Restricted professional work stays
+            separate by design.
           </p>
           {/*
             Capability qualifier. Wording is derived from the Portfolio "About"
