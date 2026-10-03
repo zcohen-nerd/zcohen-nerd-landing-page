@@ -1,6 +1,7 @@
 name: dependency-audit
 
-# Fails on any known dependency vulnerability or unavailable audit report.
+# Fails on any unapproved dependency vulnerability or unavailable audit report.
+# Exact build-only exceptions are time-bounded in the audit allowlist.
 
 on:
   schedule:
@@ -9,6 +10,7 @@ on:
     paths:
       - "package.json"
       - "package-lock.json"
+      - ".github/audit-allowlist.json"
       - ".github/workflows/dependency-audit.yml"
       - "scripts/audit-ci.mjs"
       - "scripts/test-audit-ci.mjs"
