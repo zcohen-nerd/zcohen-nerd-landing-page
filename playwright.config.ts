@@ -24,14 +24,14 @@ export default defineConfig({
     ['json', {outputFile: 'reports/quality/playwright-results.json'}],
   ],
   use: {
-    baseURL: `http://localhost:${PORT}`,
+    baseURL: `http://127.0.0.1:${PORT}`,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
   projects: [{name: 'chromium', use: {...devices['Desktop Chrome']}}],
   webServer: {
-    command: `npm run serve -- --port ${PORT} --no-open`,
-    url: `http://localhost:${PORT}`,
+    command: `npm run serve -- --host 127.0.0.1 --port ${PORT} --no-open`,
+    url: `http://127.0.0.1:${PORT}`,
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
   },

@@ -11,9 +11,9 @@
     "serve": "docusaurus serve",
     "clear": "docusaurus clear",
     "format": "prettier --write .",
-    "format:check": "node scripts/changed-files.mjs --run \"prettier --check\"",
+    "format:check": "prettier --check .",
     "lint": "eslint .",
-    "lint:md": "node scripts/changed-files.mjs --ext .md,.mdx --run \"markdownlint-cli2\"",
+    "lint:md": "markdownlint-cli2 \"**/*.md\" \"**/*.mdx\"",
     "lint:md:all": "markdownlint-cli2 \"**/*.md\" \"**/*.mdx\"",
     "validate": "node scripts/validate-build.js",
     "verify": "npm run format:check && npm run lint && npm run lint:md && npm run validate",
@@ -79,5 +79,17 @@
   },
   "engines": {
     "node": ">=22.0.0"
+  },
+  "overrides": {
+    "serialize-javascript": "^7.1.1",
+    "markdownlint-cli2": {
+      "smol-toml": "^1.8.0"
+    },
+    "sockjs": {
+      "uuid": "^11.1.1"
+    },
+    "gaxios": {
+      "uuid": "^11.1.1"
+    }
   }
 }

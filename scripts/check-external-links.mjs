@@ -27,6 +27,7 @@
  */
 import {mkdirSync, writeFileSync, readFileSync, existsSync} from 'node:fs';
 import {dirname} from 'node:path';
+import {createRequire} from 'node:module';
 import {spawn, spawnSync} from 'node:child_process';
 import {setTimeout as sleep} from 'node:timers/promises';
 import {LinkChecker} from 'linkinator';
@@ -51,14 +52,26 @@ const cfg = existsSync('linkinator.config.json')
   ? JSON.parse(readFileSync('linkinator.config.json', 'utf8'))
   : {};
 
-const server = spawn('npm', ['run', 'serve', '--', '--port', String(port)], {
-  stdio: ['ignore', 'pipe', 'pipe'],
-  shell: true, // Windows: npm is npm.cmd, which needs a shell to spawn.
-});
+const require = createRequire(import.meta.url);
+const server = spawn(
+  process.execPath,
+  [
+    require.resolve('@docusaurus/core/bin/docusaurus.mjs'),
+    'serve',
+    '--host',
+    '127.0.0.1',
+    '--port',
+    String(port),
+    '--no-open',
+  ],
+  {
+    stdio: ['ignore', 'pipe', 'pipe'],
+  },
+);
 
 let baseUrl = '';
 const grabUrl = (buf) => {
-  const m = String(buf).match(/https?:\/\/localhost:\d+\/\S*/);
+  const m = String(buf).match(/https?:\/\/127\.0\.0\.1:\d+\/\S*/);
   if (m && !baseUrl) baseUrl = m[0].replace(/\/+$/, '') + '/';
 };
 server.stdout.on('data', grabUrl);
@@ -88,7 +101,7 @@ process.on('SIGINT', () => {
 
 // Wait for the server to announce its URL and start answering.
 for (let i = 0; i < 60 && !baseUrl; i++) await sleep(500);
-if (!baseUrl) baseUrl = `http://localhost:${port}/`;
+if (!baseUrl) baseUrl = `http://127.0.0.1:${port}/`;
 for (let i = 0; i < 60; i++) {
   try {
     const r = await fetch(baseUrl);

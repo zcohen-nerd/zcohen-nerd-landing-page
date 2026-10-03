@@ -15,14 +15,15 @@ zcohen-nerd.com`).
 
 Click depth: every route is 1 click from `/`. Sitemap: `@docusaurus/plugin-sitemap`
 via preset (all `<loc>` on the apex domain, trailing slash). `static/robots.txt`
+
 + `static/CNAME` = `zcohen-nerd.com`.
 
 ## Structured data
 
 Two JSON-LD blocks on every route, from `docusaurus.config.js` `headTags`:
 
-- **`WebSite`** — `name`, `url`, `description`. Unchanged.
-- **`Person`** — now `name`, `alternateName`, `url`, **`image`**, `jobTitle`,
++ **`WebSite`** — `name`, `url`, `description`. Unchanged.
++ **`Person`** — now `name`, `alternateName`, `url`, **`image`**, `jobTitle`,
   **`description`**, **`knowsAbout`** (9 topics, all drawn from the sites' own
   pages), `sameAs` (4). **No `worksFor`, no `address`** (owner decision — employer
   stays on the Portfolio About page only).

@@ -2,10 +2,9 @@
 /**
  * List the files changed on this branch (or run a command against them).
  *
- * Used by `npm run format:check` and the pre-commit hook so formatting/lint gates
- * only touch what a change actually modified — never a whole-repo sweep. The
- * one-time baseline reformat is a separate, deliberate `npm run format` commit
- * (see CONTRIBUTING.md), not something CI does implicitly.
+ * Optional helper for focused local checks. The normal format:check and
+ * lint:md commands scan the full repository so existing issues cannot hide
+ * outside the current diff.
  *
  * Change set:
  *   - CI pull request (GITHUB_BASE_REF set): merge-base(origin/<base>, HEAD)..HEAD

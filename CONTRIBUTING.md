@@ -12,11 +12,11 @@ Run `npm run <script>`:
 | Script            | What it checks                                                                                                                                                                                                               | CI job (`.github/workflows/quality.yml`)       |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
 | `build`           | Production build. Fails on broken **internal** links **and anchors** (`onBrokenLinks` / `onBrokenAnchors` / `onBrokenMarkdownLinks: 'throw'`).                                                                               | `build`                                        |
-| `format:check`    | Prettier, **only on files changed vs the PR base** (`scripts/changed-files.mjs`).                                                                                                                                            | `format-lint`                                  |
+| `format:check`    | Prettier over all supported repository files (generated files and Markdown excluded).                                                                                                                                            | `format-lint`                                  |
 | `format`          | Prettier **write** over the whole repo — the one-time baseline, see below.                                                                                                                                                   | —                                              |
 | `lint`            | ESLint (flat config, JS/JSX). `jsx-a11y` runs here as a fast static a11y check.                                                                                                                                              | `format-lint`                                  |
-| `lint:md`         | markdownlint, **only on changed `.md`/`.mdx`**.                                                                                                                                                                              | `format-lint`                                  |
-| `lint:md:all`     | markdownlint over every Markdown file (has a known pre-existing backlog — see below).                                                                                                                                        | —                                              |
+| `lint:md`         | markdownlint over all Markdown/MDX covered by the repository config.                                                                                                                                                                              | `format-lint`                                  |
+| `lint:md:all`     | Alias for the full Markdown/MDX check.                                                                                                                                        | —                                              |
 | `validate`        | `scripts/validate-build.js` — canonical domain, sitemap, robots, duplicate IDs, status-vocabulary pills, registry links, curated proof-layer, a11y statics. **Needs `npm run build` first.**                                 | `validators`                                   |
 | `test:a11y`       | Playwright + `@axe-core/playwright` — WCAG 2.1 A/AA smoke on `/`, `/about/`, `/404.html`. Serves the built site.                                                                                                             | `a11y`                                         |
 | `test:keyboard`   | Playwright — the shared brand navbar's ecosystem disclosure + mobile drawer: wiring, ARIA, open/close. `@contract` tests (focus-trap, focus-return, Escape) are `fixme` pending the brand navbar remediation.                | `keyboard`                                     |
@@ -74,8 +74,26 @@ Not addressed by the gate rollout; tracked for a follow-up:
   against the consolidated remediated tree; fix each finding or add a
   narrowly-scoped, commented entry to `e2e/axe-exclusions.ts`. Current known
   finding: colour-contrast on the homepage "Current focus" links.
-- **Markdown backlog** — `lint:md:all` reports pre-existing `MD022/MD032/MD025`
-  issues in `CLAUDE.md` and `src/pages/about.md` (duplicate H1). The `lint:md`
-  gate is changed-scoped, so these do not block; clear them opportunistically.
 - **Perf budgets** are ~15 % above the 2026-08 baseline; ratchet down after any
   optimisation.
+
+## Dependency maintenance
+
+Run `npm audit` after dependency changes. The September 2026 cleanup updates
+compatible dependency ranges and uses targeted overrides for dependencies whose
+parents still require affected versions:
+
+- `serialize-javascript` 7.1.1+: retains the CommonJS serializer used by the
+  webpack plugins; requires Node 20+, within this repository's Node 22+ baseline.
+- `markdownlint-cli2 > smol-toml` 1.8.0+: patched TOML parser.
+- `sockjs > uuid` and `gaxios > uuid` 11.1.1+: both parents use the supported
+  CommonJS `v4()` API.
+
+Keep these overrides until upstream dependency ranges include patched releases.
+Validate production builds, lint, browser checks, and development-server startup
+when changing them. Do not use `npm audit fix --force` to bypass compatibility
+review.
+
+The dependency-audit gate now requires zero known vulnerabilities at every
+severity and fails on registry/report errors. The former exception allowlist
+has been removed.

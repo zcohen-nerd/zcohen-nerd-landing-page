@@ -23,10 +23,12 @@ the fallback if DNS TXT is inconvenient.)
 1. GSC → *Add property* → **URL prefix** → `https://zcohen-nerd.com/`.
 2. In `docusaurus.config.js`, uncomment the placeholder in `headTags` and paste
    the token:
+
    ```js
    {tagName: 'meta', attributes: {name: 'google-site-verification', content: '<token>'}},
    {tagName: 'meta', attributes: {name: 'msvalidate.01', content: '<token>'}},
    ```
+
 3. `npm run build`, deploy, **Verify**.
 
 ## 2. Submit the sitemap
@@ -56,7 +58,7 @@ the fallback if DNS TXT is inconvenient.)
 
 | date | queries file | pages file | indexed | notes |
 | --- | --- | --- | --- | --- |
-| _fill in_ | | | | first baseline |
+| *fill in* | | | | first baseline |
 
 ## 5. Monthly review (~10 min — small site)
 
