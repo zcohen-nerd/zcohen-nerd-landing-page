@@ -20,6 +20,46 @@ const cases = [
     }),
     1,
   ],
+  [
+    'exact allowlisted advisory passes',
+    JSON.stringify({
+      vulnerabilities: {
+        braces: {
+          severity: 'high',
+          via: [
+            {
+              source: 1,
+              url: 'https://github.com/advisories/GHSA-vfj7-8cjw-p6xm',
+            },
+          ],
+        },
+      },
+      metadata: {
+        vulnerabilities: {...clean.metadata.vulnerabilities, high: 1, total: 1},
+      },
+    }),
+    0,
+  ],
+  [
+    'new advisory on allowlisted package fails',
+    JSON.stringify({
+      vulnerabilities: {
+        braces: {
+          severity: 'high',
+          via: [
+            {
+              source: 2,
+              url: 'https://github.com/advisories/GHSA-new-advisory',
+            },
+          ],
+        },
+      },
+      metadata: {
+        vulnerabilities: {...clean.metadata.vulnerabilities, high: 1, total: 1},
+      },
+    }),
+    1,
+  ],
   ['registry error fails', JSON.stringify({error: {code: 'E503'}}), 1],
   ['missing report fields fail', '{}', 1],
   ['malformed report fails', 'not JSON', 1],

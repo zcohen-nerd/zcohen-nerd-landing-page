@@ -26,6 +26,13 @@ body {
   padding: 0;
 }
 
+/* Brand 1.3.0 adds intrinsic dimensions to the navbar wordmark. Its shared
+   height rule needs an explicit auto width so the 347px HTML width does not
+   overflow narrow viewports. */
+.navbar img[alt='zcohen-nerd'] {
+  width: auto;
+}
+
 /* Screen-reader-only text — used for external-link indicators. */
 .sr-only {
   position: absolute;
