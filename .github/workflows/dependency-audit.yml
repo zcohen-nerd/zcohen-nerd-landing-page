@@ -1,11 +1,10 @@
 name: dependency-audit
 
-# Fails on any unapproved dependency vulnerability or unavailable audit report.
-# Exact build-only exceptions are time-bounded in the audit allowlist.
+# Fail on every unapproved advisory or unavailable/invalid audit report.
 
 on:
   schedule:
-    - cron: "23 6 * * 1" # Mondays 06:23 UTC, after Dependabot opens its PRs
+    - cron: "23 13 * * 1" # Monday 08:23 EST / 09:23 EDT; after the 06:00 ET Dependabot window
   pull_request:
     paths:
       - "package.json"
@@ -14,6 +13,17 @@ on:
       - ".github/workflows/dependency-audit.yml"
       - "scripts/audit-ci.mjs"
       - "scripts/test-audit-ci.mjs"
+      - ".github/DEPENDENCY-AUDIT.md"
+  push:
+    branches: [main]
+    paths:
+      - "package.json"
+      - "package-lock.json"
+      - ".github/audit-allowlist.json"
+      - ".github/workflows/dependency-audit.yml"
+      - "scripts/audit-ci.mjs"
+      - "scripts/test-audit-ci.mjs"
+      - ".github/DEPENDENCY-AUDIT.md"
   workflow_dispatch:
 
 permissions:

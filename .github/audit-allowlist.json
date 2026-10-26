@@ -1,28 +1,26 @@
 {
-  "_comment": "Exact advisory exceptions for unfixed build-only dependencies. The audit gate fails on any new advisory ID or an expired review date.",
+  "_comment": "Only exact advisory IDs and installed versions are accepted. All severities are checked; expired entries fail even when stale. See .github/DEPENDENCY-AUDIT.md.",
   "advisories": [
-    {
-      "package": "braces",
-      "advisories": ["GHSA-vfj7-8cjw-p6xm"],
-      "severity": "high",
-      "exposure": "build-only / file watcher and glob matcher",
-      "installed": "3.0.3",
-      "path": "@docusaurus/core@3.10.2 > (chokidar@3.6.0 | Docusaurus build tooling > micromatch@4.0.8) > braces@3.0.3",
-      "fix_available": false,
-      "reason": "The stack-exhaustion issue requires a deeply nested attacker-controlled glob. This static-site project uses braces only for local build-time file watching and repository-controlled glob matching; it is not bundled into the deployed site. npm reports no fix and 3.0.3 is the latest release.",
-      "upstream": "https://github.com/micromatch/braces",
-      "review_by": "2026-11-30"
-    },
     {
       "package": "http-cache-semantics",
       "advisories": ["GHSA-ch52-4w7c-c8xp"],
+      "versions": ["4.2.0"],
       "severity": "high",
       "exposure": "build-only / CLI update checker",
-      "installed": "4.2.0",
-      "path": "@docusaurus/core@3.10.2 > update-notifier@6.0.2 > latest-version@7.0.0 > package-json@8.1.1 > got@12.6.1 > cacheable-request@10.2.14 > http-cache-semantics@4.2.0",
-      "fix_available": false,
-      "reason": "The max-stale issue affects shared HTTP caches. This dependency is used only by Docusaurus's local CLI update checker and is absent from the generated static site; the project does not operate a cross-user cache. npm reports no fix and 4.2.0 is the latest release.",
-      "upstream": "https://github.com/kornelski/http-cache-semantics",
+      "path": "@docusaurus/core@3.10.2 > update-notifier > latest-version > package-json > got > cacheable-request > http-cache-semantics@4.2.0",
+      "reason": "No patched release is available. This instance is used by the local Docusaurus CLI update checker, not a cross-user shared HTTP cache or the generated static site. The advisory requires reuse of another user's cached response. Do not extend this exception to an application HTTP cache.",
+      "upstream": "https://github.com/advisories/GHSA-ch52-4w7c-c8xp",
+      "review_by": "2026-11-30"
+    },
+    {
+      "package": "tinypool",
+      "advisories": ["GHSA-5gmw-xhrv-c9v3", "GHSA-85c8-ppgw-ccpr"],
+      "versions": ["1.1.1"],
+      "severity": "critical",
+      "exposure": "build-only / Docusaurus static-site generation workers",
+      "path": "@docusaurus/core@3.10.2 > tinypool@1.1.1",
+      "reason": "Docusaurus maintainers reviewed both advisories and determined they do not add an attack path to its build model: SSG workers already run trusted repository code with host privileges, and the run-options advisory does not affect its pool.run(task) call without a second argument. Tinypool is absent from deployed browser code. The patched 2.1.2 is outside core's declared ^1.0.2 range; retain the supported major rather than force an unverified worker-pool migration. Re-review on any version, advisory, dependency-path, or usage change.",
+      "upstream": "https://github.com/facebook/docusaurus/issues/12584",
       "review_by": "2026-11-30"
     }
   ]
