@@ -91,6 +91,12 @@
     "gaxios": {
       "uuid": "^11.1.1"
     },
-    "katex": "^0.18.2"
+    "katex": "^0.18.2",
+    "markdownlint": {
+      "re2js": "2.8.7"
+    },
+    "linkinator": {
+      "glob": "^14.0.2"
+    }
   }
 }

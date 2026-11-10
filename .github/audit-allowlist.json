@@ -22,6 +22,17 @@
       "reason": "Docusaurus maintainers reviewed both advisories and determined they do not add an attack path to its build model: SSG workers already run trusted repository code with host privileges, and the run-options advisory does not affect its pool.run(task) call without a second argument. Tinypool is absent from deployed browser code. The patched 2.1.2 is outside core's declared ^1.0.2 range; retain the supported major rather than force an unverified worker-pool migration. Re-review on any version, advisory, dependency-path, or usage change.",
       "upstream": "https://github.com/facebook/docusaurus/issues/12584",
       "review_by": "2026-11-30"
+    },
+    {
+      "package": "deepmerge",
+      "advisories": ["GHSA-gcqx-w48m-w2h4"],
+      "versions": ["4.3.1"],
+      "severity": "low",
+      "exposure": "build-only / SVGR SVG optimization configuration",
+      "path": "@docusaurus/preset-classic@3.10.2 > @docusaurus/plugin-svgr@3.10.2 > @svgr/webpack@8.1.0 > @svgr/plugin-svgo@8.1.0 > deepmerge@4.3.1",
+      "reason": "No patched release is available. The only installed consumer is @svgr/plugin-svgo, whose distributed implementation does not import deepmerge; the package is retained as a declared transitive dependency. SVGR configuration and source assets are trusted repository inputs, not public request data. This exception does not permit use for untrusted object merging or a new consumer. Re-review on any advisory, version, dependency-path, or usage change.",
+      "upstream": "https://github.com/advisories/GHSA-gcqx-w48m-w2h4",
+      "review_by": "2026-11-30"
     }
   ]
 }

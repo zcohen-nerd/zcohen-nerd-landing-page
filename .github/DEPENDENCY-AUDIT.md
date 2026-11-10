@@ -21,8 +21,9 @@ verify the consumers.
 
 ## Residual exceptions
 
-Only two root packages remain accepted: http-cache-semantics 4.2.0 in the local CLI
-update checker, and tinypool 1.1.1 in trusted Docusaurus build workers. These are
+Three root packages have scoped exceptions: http-cache-semantics 4.2.0 in the local CLI
+update checker, tinypool 1.1.1 in trusted Docusaurus build workers, and deepmerge
+4.3.1, declared but not imported by the installed SVGR optimizer. These are
 risk acceptances, not patched dependencies or a clean raw npm audit. The exception
 file records their exact advisories, dependency paths, exposure, upstream evidence,
 and a review deadline of November 30, 2026.
@@ -33,6 +34,22 @@ copies, and expired exceptions fail the gate. Expired stale entries also fail
 until removed. Re-review the documented path if a consumer or usage changes; the
 gate does not infer application reachability from package names or automatically
 approve future vulnerabilities on an excepted package.
+
+## November 10, 2026 PR review
+
+The Playwright update moves the test runner and browser packages to 1.65.0.
+Joi is refreshed within its supported 17.x range to 17.13.9. A Markdownlint-scoped
+override replaces its pinned re2js 2.8.6 with patched 2.8.7. A Linkinator-scoped
+glob 14 override also selects patched minimatch 11; its named asynchronous
+`glob()` API is checked through relative/rooted file-pattern expansion and
+no-match handling. Older minimatch 3 copies are outside this advisory's range.
+
+Deepmerge GHSA-gcqx-w48m-w2h4 has no patched release. Its only installed consumer,
+`@svgr/plugin-svgo@8.1.0`, declares the dependency but does not import it in its
+distributed implementation. The exact-version 4.3.1 build-only exception expires
+November 30 alongside the existing exceptions; it does not authorize untrusted
+object merging or additional consumers. Source:
+<https://github.com/advisories/GHSA-gcqx-w48m-w2h4>.
 
 ## Run locally
 
